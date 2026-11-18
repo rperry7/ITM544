@@ -1,0 +1,4 @@
+﻿itmo-444-544-lab07-weather-role | dynamodb:PutItem | allowed
+itmo-444-544-lab07-weather-role | ssm:GetParameter | implicitDeny
+itmo-444-544-lab07-advisor-role | ssm:GetParameter | allowed
+itmo-444-544-lab07-advisor-role | dynamodb:GetItem | implicitDeny

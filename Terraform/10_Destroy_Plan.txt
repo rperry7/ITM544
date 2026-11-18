@@ -1,0 +1,965 @@
+﻿data.aws_vpc.default: Reading...
+data.aws_ami.al2023: Reading...
+data.aws_iam_policy_document.ec2_trust: Reading...
+aws_ssm_parameter.gemini: Refreshing state... [id=/itmo-444-544-lab07/gemini-api-key]
+data.aws_iam_policy_document.ec2_trust: Read complete after 0s [id=2851119427]
+aws_dynamodb_table.weather: Refreshing state... [id=itmo-444-544-lab07-weather-lookups]
+aws_iam_role.tier["advisor"]: Refreshing state... [id=itmo-444-544-lab07-advisor-role]
+aws_iam_role.tier["weather"]: Refreshing state... [id=itmo-444-544-lab07-weather-role]
+data.aws_iam_policy_document.advisor: Reading...
+data.aws_iam_policy_document.advisor: Read complete after 0s [id=2752584255]
+data.aws_iam_policy_document.weather: Reading...
+data.aws_iam_policy_document.weather: Read complete after 0s [id=2057029901]
+aws_iam_role_policy.weather: Refreshing state... [id=itmo-444-544-lab07-weather-role:itmo-444-544-lab07-weather-policy]
+aws_iam_role_policy.advisor: Refreshing state... [id=itmo-444-544-lab07-advisor-role:itmo-444-544-lab07-advisor-policy]
+aws_iam_instance_profile.tier["advisor"]: Refreshing state... [id=itmo-444-544-lab07-advisor-profile]
+aws_iam_instance_profile.tier["weather"]: Refreshing state... [id=itmo-444-544-lab07-weather-profile]
+data.aws_vpc.default: Read complete after 1s [id=vpc-0b65434ca3c6f48cb]
+data.aws_subnets.default: Reading...
+aws_security_group.app: Refreshing state... [id=sg-0b3fa609f1e21e658]
+aws_security_group.alb: Refreshing state... [id=sg-0378a4172e8189f66]
+aws_lb_target_group.tier["advisor"]: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-advisor-tg/b66ecbd37513ab8c]
+aws_lb_target_group.tier["weather"]: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-weather-tg/2a3381b12f7d9dc3]
+data.aws_subnets.default: Read complete after 0s [id=us-east-2]
+aws_vpc_security_group_egress_rule.app_out: Refreshing state... [id=sgr-05519161b6d2223b6]
+aws_vpc_security_group_ingress_rule.app_ssh[0]: Refreshing state... [id=sgr-055011e4e12fcdb39]
+aws_vpc_security_group_ingress_rule.app_from_alb: Refreshing state... [id=sgr-015287c7a51a84e71]
+aws_vpc_security_group_egress_rule.alb_to_app: Refreshing state... [id=sgr-0f8e732558657d75a]
+aws_lb.main: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:loadbalancer/app/itmo-444-544-lab07-alb/e35de637238d6dec]
+aws_vpc_security_group_ingress_rule.alb_from_internet["advisor"]: Refreshing state... [id=sgr-055a1d9e016dc6a1f]
+data.aws_ami.al2023: Read complete after 1s [id=ami-00a8036df57dec356]
+aws_vpc_security_group_ingress_rule.alb_from_internet["weather"]: Refreshing state... [id=sgr-0e2555dadb0a11d31]
+aws_lb_listener.tier["advisor"]: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:listener/app/itmo-444-544-lab07-alb/e35de637238d6dec/6fcb10f71ec245d7]
+aws_lb_listener.tier["weather"]: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:listener/app/itmo-444-544-lab07-alb/e35de637238d6dec/0d4f9d3683ac8ba2]
+aws_launch_template.tier["advisor"]: Refreshing state... [id=lt-05ef6663c0da1e72a]
+aws_launch_template.tier["weather"]: Refreshing state... [id=lt-0e14d28f042b745a6]
+aws_autoscaling_group.tier["advisor"]: Refreshing state... [id=itmo-444-544-lab07-advisor-asg]
+aws_autoscaling_group.tier["weather"]: Refreshing state... [id=itmo-444-544-lab07-weather-asg]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_autoscaling_group.tier["advisor"] will be destroyed
+  - resource "aws_autoscaling_group" "tier" {
+      - arn                              = "arn:aws:autoscaling:us-east-2:[ACCOUNT_ID_REDACTED]:autoScalingGroup:e8c73285-7628-479b-a0a2-735ad5839eed:autoScalingGroupName/itmo-444-544-lab07-advisor-asg" -> null
+      - availability_zones               = [
+          - "us-east-2a",
+          - "us-east-2b",
+          - "us-east-2c",
+        ] -> null
+      - capacity_rebalance               = false -> null
+      - default_cooldown                 = 300 -> null
+      - default_instance_warmup          = 0 -> null
+      - desired_capacity                 = 1 -> null
+      - enabled_metrics                  = [] -> null
+      - force_delete                     = true -> null
+      - force_delete_warm_pool           = false -> null
+      - health_check_grace_period        = 120 -> null
+      - health_check_type                = "ELB" -> null
+      - id                               = "itmo-444-544-lab07-advisor-asg" -> null
+      - ignore_failed_scaling_activities = false -> null
+      - load_balancers                   = [] -> null
+      - max_instance_lifetime            = 0 -> null
+      - max_size                         = 1 -> null
+      - metrics_granularity              = "1Minute" -> null
+      - min_size                         = 1 -> null
+      - name                             = "itmo-444-544-lab07-advisor-asg" -> null
+      - predicted_capacity               = 0 -> null
+      - protect_from_scale_in            = false -> null
+      - service_linked_role_arn          = "arn:aws:iam::[ACCOUNT_ID_REDACTED]:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling" -> null
+      - suspended_processes              = [] -> null
+      - target_group_arns                = [
+          - "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-advisor-tg/b66ecbd37513ab8c",
+        ] -> null
+      - termination_policies             = [] -> null
+      - vpc_zone_identifier              = [
+          - "subnet-0320b6b5a09b75e05",
+          - "subnet-0533971275c5e4149",
+          - "subnet-0d5a982658838e73b",
+        ] -> null
+      - wait_for_capacity_timeout        = "10m" -> null
+      - warm_pool_size                   = 0 -> null
+        # (5 unchanged attributes hidden)
+
+      - availability_zone_distribution {
+          - capacity_distribution_strategy = "balanced-best-effort" -> null
+        }
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "default" -> null
+        }
+
+      - instance_refresh {
+          - strategy = "Rolling" -> null
+          - triggers = [] -> null
+
+          - preferences {
+              - auto_rollback                = false -> null
+              - checkpoint_percentages       = [] -> null
+              - max_healthy_percentage       = 100 -> null
+              - min_healthy_percentage       = 0 -> null
+              - scale_in_protected_instances = "Ignore" -> null
+              - skip_matching                = false -> null
+              - standby_instances            = "Ignore" -> null
+                # (2 unchanged attributes hidden)
+            }
+        }
+
+      - launch_template {
+          - id      = "lt-05ef6663c0da1e72a" -> null
+          - name    = "itmo-444-544-lab07-advisor-lt" -> null
+          - version = "1" -> null
+        }
+
+      - tag {
+          - key                 = "Name" -> null
+          - propagate_at_launch = true -> null
+          - value               = "advisor-app" -> null
+        }
+
+      - traffic_source {
+          - identifier = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-advisor-tg/b66ecbd37513ab8c" -> null
+          - type       = "elbv2" -> null
+        }
+    }
+
+  # aws_autoscaling_group.tier["weather"] will be destroyed
+  - resource "aws_autoscaling_group" "tier" {
+      - arn                              = "arn:aws:autoscaling:us-east-2:[ACCOUNT_ID_REDACTED]:autoScalingGroup:58f8865a-fb2f-4151-a0e4-f57bc90ea688:autoScalingGroupName/itmo-444-544-lab07-weather-asg" -> null
+      - availability_zones               = [
+          - "us-east-2a",
+          - "us-east-2b",
+          - "us-east-2c",
+        ] -> null
+      - capacity_rebalance               = false -> null
+      - default_cooldown                 = 300 -> null
+      - default_instance_warmup          = 0 -> null
+      - desired_capacity                 = 1 -> null
+      - enabled_metrics                  = [] -> null
+      - force_delete                     = true -> null
+      - force_delete_warm_pool           = false -> null
+      - health_check_grace_period        = 120 -> null
+      - health_check_type                = "ELB" -> null
+      - id                               = "itmo-444-544-lab07-weather-asg" -> null
+      - ignore_failed_scaling_activities = false -> null
+      - load_balancers                   = [] -> null
+      - max_instance_lifetime            = 0 -> null
+      - max_size                         = 1 -> null
+      - metrics_granularity              = "1Minute" -> null
+      - min_size                         = 1 -> null
+      - name                             = "itmo-444-544-lab07-weather-asg" -> null
+      - predicted_capacity               = 0 -> null
+      - protect_from_scale_in            = false -> null
+      - service_linked_role_arn          = "arn:aws:iam::[ACCOUNT_ID_REDACTED]:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling" -> null
+      - suspended_processes              = [] -> null
+      - target_group_arns                = [
+          - "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-weather-tg/2a3381b12f7d9dc3",
+        ] -> null
+      - termination_policies             = [] -> null
+      - vpc_zone_identifier              = [
+          - "subnet-0320b6b5a09b75e05",
+          - "subnet-0533971275c5e4149",
+          - "subnet-0d5a982658838e73b",
+        ] -> null
+      - wait_for_capacity_timeout        = "10m" -> null
+      - warm_pool_size                   = 0 -> null
+        # (5 unchanged attributes hidden)
+
+      - availability_zone_distribution {
+          - capacity_distribution_strategy = "balanced-best-effort" -> null
+        }
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "default" -> null
+        }
+
+      - instance_refresh {
+          - strategy = "Rolling" -> null
+          - triggers = [] -> null
+
+          - preferences {
+              - auto_rollback                = false -> null
+              - checkpoint_percentages       = [] -> null
+              - max_healthy_percentage       = 100 -> null
+              - min_healthy_percentage       = 0 -> null
+              - scale_in_protected_instances = "Ignore" -> null
+              - skip_matching                = false -> null
+              - standby_instances            = "Ignore" -> null
+                # (2 unchanged attributes hidden)
+            }
+        }
+
+      - launch_template {
+          - id      = "lt-0e14d28f042b745a6" -> null
+          - name    = "itmo-444-544-lab07-weather-lt" -> null
+          - version = "3" -> null
+        }
+
+      - tag {
+          - key                 = "Name" -> null
+          - propagate_at_launch = true -> null
+          - value               = "weather-app" -> null
+        }
+
+      - traffic_source {
+          - identifier = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-weather-tg/2a3381b12f7d9dc3" -> null
+          - type       = "elbv2" -> null
+        }
+    }
+
+  # aws_dynamodb_table.weather will be destroyed
+  - resource "aws_dynamodb_table" "weather" {
+      - arn                         = "arn:aws:dynamodb:us-east-2:[ACCOUNT_ID_REDACTED]:table/itmo-444-544-lab07-weather-lookups" -> null
+      - billing_mode                = "PAY_PER_REQUEST" -> null
+      - deletion_protection_enabled = false -> null
+      - hash_key                    = "zip" -> null
+      - id                          = "itmo-444-544-lab07-weather-lookups" -> null
+      - name                        = "itmo-444-544-lab07-weather-lookups" -> null
+      - read_capacity               = 0 -> null
+      - stream_enabled              = false -> null
+      - table_class                 = "STANDARD" -> null
+      - tags                        = {} -> null
+      - tags_all                    = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - write_capacity              = 0 -> null
+        # (3 unchanged attributes hidden)
+
+      - attribute {
+          - name = "zip" -> null
+          - type = "S" -> null
+        }
+
+      - point_in_time_recovery {
+          - enabled                 = false -> null
+          - recovery_period_in_days = 0 -> null
+        }
+
+      - ttl {
+          - attribute_name = "expiresAt" -> null
+          - enabled        = true -> null
+        }
+    }
+
+  # aws_iam_instance_profile.tier["advisor"] will be destroyed
+  - resource "aws_iam_instance_profile" "tier" {
+      - arn         = "arn:aws:iam::[ACCOUNT_ID_REDACTED]:instance-profile/itmo-444-544-lab07-advisor-profile" -> null
+      - create_date = "2026-11-18T02:27:57Z" -> null
+      - id          = "itmo-444-544-lab07-advisor-profile" -> null
+      - name        = "itmo-444-544-lab07-advisor-profile" -> null
+      - path        = "/" -> null
+      - role        = "itmo-444-544-lab07-advisor-role" -> null
+      - tags        = {} -> null
+      - tags_all    = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - unique_id   = "AIPAZDZCY37G74KMBH4AP" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # aws_iam_instance_profile.tier["weather"] will be destroyed
+  - resource "aws_iam_instance_profile" "tier" {
+      - arn         = "arn:aws:iam::[ACCOUNT_ID_REDACTED]:instance-profile/itmo-444-544-lab07-weather-profile" -> null
+      - create_date = "2026-11-18T02:27:57Z" -> null
+      - id          = "itmo-444-544-lab07-weather-profile" -> null
+      - name        = "itmo-444-544-lab07-weather-profile" -> null
+      - path        = "/" -> null
+      - role        = "itmo-444-544-lab07-weather-role" -> null
+      - tags        = {} -> null
+      - tags_all    = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - unique_id   = "AIPAZDZCY37G6KBY5XFLU" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # aws_iam_role.tier["advisor"] will be destroyed
+  - resource "aws_iam_role" "tier" {
+      - arn                   = "arn:aws:iam::[ACCOUNT_ID_REDACTED]:role/itmo-444-544-lab07-advisor-role" -> null
+      - assume_role_policy    = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action    = "sts:AssumeRole"
+                      - Effect    = "Allow"
+                      - Principal = {
+                          - Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - create_date           = "2026-11-18T02:27:56Z" -> null
+      - force_detach_policies = false -> null
+      - id                    = "itmo-444-544-lab07-advisor-role" -> null
+      - managed_policy_arns   = [] -> null
+      - max_session_duration  = 3600 -> null
+      - name                  = "itmo-444-544-lab07-advisor-role" -> null
+      - path                  = "/" -> null
+      - tags                  = {} -> null
+      - tags_all              = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - unique_id             = "AROAZDZCY37GZB5F3B2RL" -> null
+        # (3 unchanged attributes hidden)
+
+      - inline_policy {
+          - name   = "itmo-444-544-lab07-advisor-policy" -> null
+          - policy = jsonencode(
+                {
+                  - Statement = [
+                      - {
+                          - Action   = "ssm:GetParameter"
+                          - Effect   = "Allow"
+                          - Resource = "arn:aws:ssm:us-east-2:[ACCOUNT_ID_REDACTED]:parameter/itmo-444-544-lab07/gemini-api-key"
+                        },
+                    ]
+                  - Version   = "2012-10-17"
+                }
+            ) -> null
+        }
+    }
+
+  # aws_iam_role.tier["weather"] will be destroyed
+  - resource "aws_iam_role" "tier" {
+      - arn                   = "arn:aws:iam::[ACCOUNT_ID_REDACTED]:role/itmo-444-544-lab07-weather-role" -> null
+      - assume_role_policy    = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action    = "sts:AssumeRole"
+                      - Effect    = "Allow"
+                      - Principal = {
+                          - Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - create_date           = "2026-11-18T02:27:56Z" -> null
+      - force_detach_policies = false -> null
+      - id                    = "itmo-444-544-lab07-weather-role" -> null
+      - managed_policy_arns   = [] -> null
+      - max_session_duration  = 3600 -> null
+      - name                  = "itmo-444-544-lab07-weather-role" -> null
+      - path                  = "/" -> null
+      - tags                  = {} -> null
+      - tags_all              = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - unique_id             = "AROAZDZCY37GYG7UF76HD" -> null
+        # (3 unchanged attributes hidden)
+
+      - inline_policy {
+          - name   = "itmo-444-544-lab07-weather-policy" -> null
+          - policy = jsonencode(
+                {
+                  - Statement = [
+                      - {
+                          - Action   = [
+                              - "dynamodb:Scan",
+                              - "dynamodb:PutItem",
+                              - "dynamodb:GetItem",
+                            ]
+                          - Effect   = "Allow"
+                          - Resource = "arn:aws:dynamodb:us-east-2:[ACCOUNT_ID_REDACTED]:table/itmo-444-544-lab07-weather-lookups"
+                        },
+                    ]
+                  - Version   = "2012-10-17"
+                }
+            ) -> null
+        }
+    }
+
+  # aws_iam_role_policy.advisor will be destroyed
+  - resource "aws_iam_role_policy" "advisor" {
+      - id          = "itmo-444-544-lab07-advisor-role:itmo-444-544-lab07-advisor-policy" -> null
+      - name        = "itmo-444-544-lab07-advisor-policy" -> null
+      - policy      = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action   = "ssm:GetParameter"
+                      - Effect   = "Allow"
+                      - Resource = "arn:aws:ssm:us-east-2:[ACCOUNT_ID_REDACTED]:parameter/itmo-444-544-lab07/gemini-api-key"
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - role        = "itmo-444-544-lab07-advisor-role" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # aws_iam_role_policy.weather will be destroyed
+  - resource "aws_iam_role_policy" "weather" {
+      - id          = "itmo-444-544-lab07-weather-role:itmo-444-544-lab07-weather-policy" -> null
+      - name        = "itmo-444-544-lab07-weather-policy" -> null
+      - policy      = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action   = [
+                          - "dynamodb:Scan",
+                          - "dynamodb:PutItem",
+                          - "dynamodb:GetItem",
+                        ]
+                      - Effect   = "Allow"
+                      - Resource = "arn:aws:dynamodb:us-east-2:[ACCOUNT_ID_REDACTED]:table/itmo-444-544-lab07-weather-lookups"
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - role        = "itmo-444-544-lab07-weather-role" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # aws_launch_template.tier["advisor"] will be destroyed
+  - resource "aws_launch_template" "tier" {
+      - arn                                  = "arn:aws:ec2:us-east-2:[ACCOUNT_ID_REDACTED]:launch-template/lt-05ef6663c0da1e72a" -> null
+      - default_version                      = 1 -> null
+      - disable_api_stop                     = false -> null
+      - disable_api_termination              = false -> null
+      - id                                   = "lt-05ef6663c0da1e72a" -> null
+      - image_id                             = "ami-00a8036df57dec356" -> null
+      - instance_type                        = "t3.micro" -> null
+      - key_name                             = "ITMO-444-544-lab-keypair" -> null
+      - latest_version                       = 1 -> null
+      - name                                 = "itmo-444-544-lab07-advisor-lt" -> null
+      - security_group_names                 = [] -> null
+      - tags                                 = {} -> null
+      - tags_all                             = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - update_default_version               = true -> null
+      - user_data                            = "IyEvYmluL2Jhc2gKZG5mIHVwZGF0ZSAteQpkbmYgaW5zdGFsbCAteSBub2RlanMKbWtkaXIgLXAgL29wdC9hcHAKZWNobyAiWTI5dWMzUWdaWGh3Y21WemN5QTlJSEpsY1hWcGNtVW9KMlY0Y0hKbGMzTW5LVHNLWTI5dWMzUWdleUJUVTAxRGJHbGxiblFzSUVkbGRGQmhjbUZ0WlhSbGNrTnZiVzFoYm1RZ2ZTQTlJSEpsY1hWcGNtVW9KMEJoZDNNdGMyUnJMMk5zYVdWdWRDMXpjMjBuS1RzS0NtTnZibk4wSUdGd2NDQTlJR1Y0Y0hKbGMzTW9LVHNLWTI5dWMzUWdVRTlTVkNBOUlIQnliMk5sYzNNdVpXNTJMbEJQVWxRZ2ZId2dNekF3TURzS1kyOXVjM1FnVjBWQlZFaEZVbDlWVWt3Z1BTQndjbTlqWlhOekxtVnVkaTVYUlVGVVNFVlNYMVZTVERzZ0x5OGdabTl5SUdWNFlXMXdiR1VnYUhSMGNEb3ZMenhoYkdJdFpHNXpQam80TURnd0NtTnZibk4wSUVkRlRVbE9TVjlCVUVsZlFrRlRSU0E5SUhCeWIyTmxjM011Wlc1MkxrZEZUVWxPU1Y5QlVFbGZRa0ZUUlNCOGZDQW5hSFIwY0hNNkx5OW5aVzVsY21GMGFYWmxiR0Z1WjNWaFoyVXVaMjl2WjJ4bFlYQnBjeTVqYjIwbk93cGpiMjV6ZENCSFJVMUpUa2xmVFU5RVJVd2dQU0J3Y205alpYTnpMbVZ1ZGk1SFJVMUpUa2xmVFU5RVJVd2dmSHdnSjJkbGJXbHVhUzB6TGpFdFpteGhjMmd0YkdsMFpTYzdDbU52Ym5OMElFdEZXVjlRUVZKQlRTQTlJSEJ5YjJObGMzTXVaVzUyTGtkRlRVbE9TVjlMUlZsZlVFRlNRVTBnZkh3Z0p5OXBkRzF2TFRRME5DMDFORFF2WjJWdGFXNXBMV0Z3YVMxclpYa25Pd3BqYjI1emRDQkxSVmxmUTBGRFNFVmZUVk1nUFNCT2RXMWlaWElvY0hKdlkyVnpjeTVsYm5ZdVMwVlpYME5CUTBoRlgxTkZRMDlPUkZNZ2ZId2dNekF3S1NBcUlERXdNREE3Q2dwamIyNXpkQ0J6YzIwZ1BTQnVaWGNnVTFOTlEyeHBaVzUwS0hzZ2NtVm5hVzl1T2lCd2NtOWpaWE56TG1WdWRpNUJWMU5mVWtWSFNVOU9JSDBwT3dwc1pYUWdZMkZqYUdWa1MyVjVJRDBnZXlCMllXeDFaVG9nYm5Wc2JDd2dZWFE2SURBZ2ZUc0tDbU52Ym5OMElHeHZaeUE5SUNobGRtVnVkQ3dnWm1sbGJHUnpJRDBnZTMwcElEMCtDaUFnWTI5dWMyOXNaUzVzYjJjb1NsTlBUaTV6ZEhKcGJtZHBabmtvZXlCMGN6b2dibVYzSUVSaGRHVW9LUzUwYjBsVFQxTjBjbWx1WnlncExDQmxkbVZ1ZEN3Z0xpNHVabWxsYkdSeklIMHBLVHNLQ2k4dklGUm9aU0JCVUVrZ2EyVjVJR3hwZG1WeklHbHVJRk5UVFNCUVlYSmhiV1YwWlhJZ1UzUnZjbVVzSUc1bGRtVnlJR2x1SUhWelpYSXRaR0YwWVNCdmNpQmhiaUJsYm5acGNtOXViV1Z1ZENCbWFXeGxMZ292THlCSFJVMUpUa2xmUVZCSlgwdEZXU0JwY3lCbWIzSWdjblZ1Ym1sdVp5QjBhR2x6SUdGd2NDQnZiaUI1YjNWeUlHOTNiaUJzWVhCMGIzQWdiMjVzZVM0S1lYTjVibU1nWm5WdVkzUnBiMjRnWjJWMFFYQnBTMlY1S0NrZ2V3b2dJR2xtSUNod2NtOWpaWE56TG1WdWRpNUhSVTFKVGtsZlFWQkpYMHRGV1NrZ2NtVjBkWEp1SUhCeWIyTmxjM011Wlc1MkxrZEZUVWxPU1Y5QlVFbGZTMFZaT3dvZ0lHbG1JQ2hqWVdOb1pXUkxaWGt1ZG1Gc2RXVWdKaVlnUkdGMFpTNXViM2NvS1NBdElHTmhZMmhsWkV0bGVTNWhkQ0E4SUV0RldWOURRVU5JUlY5TlV5a2djbVYwZFhKdUlHTmhZMmhsWkV0bGVTNTJZV3gxWlRzS0lDQmpiMjV6ZENCdmRYUWdQU0JoZDJGcGRDQnpjMjB1YzJWdVpDaHVaWGNnUjJWMFVHRnlZVzFsZEdWeVEyOXRiV0Z1WkNoN0lFNWhiV1U2SUV0RldWOVFRVkpCVFN3Z1YybDBhRVJsWTNKNWNIUnBiMjQ2SUhSeWRXVWdmU2twT3dvZ0lHTmhZMmhsWkV0bGVTQTlJSHNnZG1Gc2RXVTZJRzkxZEM1UVlYSmhiV1YwWlhJdVZtRnNkV1VzSUdGME9pQkVZWFJsTG01dmR5Z3BJSDA3Q2lBZ2NtVjBkWEp1SUdOaFkyaGxaRXRsZVM1MllXeDFaVHNLZlFvS1kyOXVjM1FnVTFsVFZFVk5YMUJTVDAxUVZDQTlDaUFnSjFsdmRTQm5hWFpsSUdFZ2MyaHZjblFnWTJ4dmRHaHBibWNnYzNWbloyVnpkR2x2YmlCbWIzSWdkR2hsSUhkbFlYUm9aWElnZVc5MUlHRnlaU0JuYVhabGJpNGdKeUFyQ2lBZ0oxSmxjR3g1SUdsdUlHRjBJRzF2YzNRZ2RIZHZJSEJzWVdsdUlITmxiblJsYm1ObGN5d2dkMmwwYUNCdWJ5QnRZWEpyWkc5M2JpQmhibVFnYm04Z2JHbHpkSE11SUZWelpTQnZibXg1SUhSb1pTQmtZWFJoSUhCeWIzWnBaR1ZrTGljN0Nnb3ZMeUJQYm14NUlIUm9aU0I2YVhBZ1kyOWtaU0JoYm1RZ2RHaGxJR1p2Y21WallYTjBJR2R2SUhSdklIUm9aU0JCU1NCelpYSjJhV05sTGlCT2IzUm9hVzVuSUdGaWIzVjBJSFJvWlNCMWMyVnlJR1J2WlhNdUNtWjFibU4wYVc5dUlHSjFhV3hrVUhKdmJYQjBLSGNwSUhzS0lDQmpiMjV6ZENCbUlEMGdkeTVtYjNKbFkyRnpkRHNLSUNCeVpYUjFjbTRnV3dvZ0lDQWdZRnBwY0NCamIyUmxPaUFrZTNjdWVtbHdmU0FvSkh0M0xtTnBkSGw5TENBa2UzY3VjM1JoZEdWOUtXQXNDaUFnSUNCZ1VHVnlhVzlrT2lBa2UyWXVibUZ0WlgxZ0xBb2dJQ0FnWUZSbGJYQmxjbUYwZFhKbE9pQWtlMll1ZEdWdGNHVnlZWFIxY21WOUlDUjdaaTUwWlcxd1pYSmhkSFZ5WlZWdWFYUjlZQ3dLSUNBZ0lHQkRiMjVrYVhScGIyNXpPaUFrZTJZdWMyaHZjblJHYjNKbFkyRnpkSDFnTEFvZ0lDQWdZRmRwYm1RNklDUjdaaTUzYVc1a1UzQmxaV1I5WUN3S0lDQWdJR0JEYUdGdVkyVWdiMllnY0hKbFkybHdhWFJoZEdsdmJqb2dKSHRtTG5CeVpXTnBjR2wwWVhScGIyNURhR0Z1WTJVZ1BUMDlJRzUxYkd3Z1B5QW5kVzVyYm05M2JpY2dPaUJtTG5CeVpXTnBjR2wwWVhScGIyNURhR0Z1WTJVZ0t5QW5JSEJsY21ObGJuUW5mV0FzQ2lBZ1hTNXFiMmx1S0NkY2JpY3BPd3A5Q2dwaGMzbHVZeUJtZFc1amRHbHZiaUJoYzJ0SFpXMXBibWtvY0hKdmJYQjBLU0I3Q2lBZ1kyOXVjM1FnYTJWNUlEMGdZWGRoYVhRZ1oyVjBRWEJwUzJWNUtDazdDaUFnWTI5dWMzUWdjbVZ6SUQwZ1lYZGhhWFFnWm1WMFkyZ29ZQ1I3UjBWTlNVNUpYMEZRU1Y5Q1FWTkZmUzkyTVdKbGRHRXZiVzlrWld4ekx5UjdSMFZOU1U1SlgwMVBSRVZNZlRwblpXNWxjbUYwWlVOdmJuUmxiblJnTENCN0NpQWdJQ0J0WlhSb2IyUTZJQ2RRVDFOVUp5d0tJQ0FnSUdobFlXUmxjbk02SUhzZ0owTnZiblJsYm5RdFZIbHdaU2M2SUNkaGNIQnNhV05oZEdsdmJpOXFjMjl1Snl3Z0ozZ3RaMjl2WnkxaGNHa3RhMlY1SnpvZ2EyVjVJSDBzQ2lBZ0lDQmliMlI1T2lCS1UwOU9Mbk4wY21sdVoybG1lU2g3Q2lBZ0lDQWdJSE41YzNSbGJVbHVjM1J5ZFdOMGFXOXVPaUI3SUhCaGNuUnpPaUJiZXlCMFpYaDBPaUJUV1ZOVVJVMWZVRkpQVFZCVUlIMWRJSDBzQ2lBZ0lDQWdJR052Ym5SbGJuUnpPaUJiZXlCd1lYSjBjem9nVzNzZ2RHVjRkRG9nY0hKdmJYQjBJSDFkSUgxZExBb2dJQ0FnSUNCblpXNWxjbUYwYVc5dVEyOXVabWxuT2lCN0lHMWhlRTkxZEhCMWRGUnZhMlZ1Y3pvZ016QXdJSDBzQ2lBZ0lDQjlLU3dLSUNBZ0lITnBaMjVoYkRvZ1FXSnZjblJUYVdkdVlXd3VkR2x0Wlc5MWRDZ3hOVEF3TUNrc0NpQWdmU2s3Q2lBZ2FXWWdLQ0Z5WlhNdWIyc3BJSHNLSUNBZ0lHTnZibk4wSUdWeWNpQTlJRzVsZHlCRmNuSnZjaWduWjJWdGFXNXBYMmgwZEhCZlpYSnliM0luS1RzS0lDQWdJR1Z5Y2k1emRHRjBkWE1nUFNCeVpYTXVjM1JoZEhWek93b2dJQ0FnZEdoeWIzY2daWEp5T3dvZ0lIMEtJQ0JqYjI1emRDQmtZWFJoSUQwZ1lYZGhhWFFnY21WekxtcHpiMjRvS1RzS0lDQmpiMjV6ZENCd1lYSjBjeUE5SUNoa1lYUmhMbU5oYm1ScFpHRjBaWE1nSmlZZ1pHRjBZUzVqWVc1a2FXUmhkR1Z6V3pCZElDWW1JR1JoZEdFdVkyRnVaR2xrWVhSbGMxc3dYUzVqYjI1MFpXNTBMbkJoY25SektTQjhmQ0JiWFRzS0lDQmpiMjV6ZENCMFpYaDBJRDBnY0dGeWRITXViV0Z3S0Nod0tTQTlQaUJ3TG5SbGVIUWdmSHdnSnljcExtcHZhVzRvSnljcExuUnlhVzBvS1RzS0lDQnBaaUFvSVhSbGVIUXBJSHNLSUNBZ0lHTnZibk4wSUdWeWNpQTlJRzVsZHlCRmNuSnZjaWduWjJWdGFXNXBYMlZ0Y0hSNVgzSmxjM0J2Ym5ObEp5azdDaUFnSUNCbGNuSXVjM1JoZEhWeklEMGdNakF3T3dvZ0lDQWdkR2h5YjNjZ1pYSnlPd29nSUgwS0lDQnlaWFIxY200Z2RHVjRkRHNLZlFvS0x5OGdWWE5sWkNCM2FHVnVJSFJvWlNCQlNTQnpaWEoyYVdObElHbHpJSFZ1WVhaaGFXeGhZbXhsTENCeVlYUmxJR3hwYldsMFpXUXNJRzl5SUhSb1pTQnJaWGtnYVhNZ2QzSnZibWN1Q21aMWJtTjBhVzl1SUdaaGJHeGlZV05yUVdSMmFXTmxLR1lwSUhzS0lDQmpiMjV6ZENCMElEMGdaaTUwWlcxd1pYSmhkSFZ5WlRzS0lDQnNaWFFnWW1GelpUc0tJQ0JwWmlBb2RDQThQU0F6TWlrZ1ltRnpaU0E5SUNkWFpXRnlJR0VnYUdWaGRua2dZMjloZEN3Z1lTQm9ZWFFnWVc1a0lHZHNiM1psY3k0bk93b2dJR1ZzYzJVZ2FXWWdLSFFnUEQwZ05UQXBJR0poYzJVZ1BTQW5WMlZoY2lCaElIZGhjbTBnYW1GamEyVjBJR0Z1WkNCc2IyNW5JSEJoYm5SekxpYzdDaUFnWld4elpTQnBaaUFvZENBOFBTQTJPQ2tnWW1GelpTQTlJQ2RYWldGeUlHRWdiR2xuYUhRZ2FtRmphMlYwSUc5eUlHRWdjM2RsWVhSbGNpQnZkbVZ5SUd4dmJtY2djMnhsWlhabGN5NG5Pd29nSUdWc2MyVWdhV1lnS0hRZ1BEMGdPREFwSUdKaGMyVWdQU0FuUVNCMExYTm9hWEowSUdGdVpDQnNhV2RvZENCd1lXNTBjeUJ2Y2lCemFHOXlkSE1nZDJsc2JDQmlaU0JtYVc1bExpYzdDaUFnWld4elpTQmlZWE5sSUQwZ0oxZGxZWElnYkdsbmFIUXNJR0p5WldGMGFHRmliR1VnWTJ4dmRHaGxjeUJoYm1RZ1luSnBibWNnZDJGMFpYSWdZVzVrSUhOMWJuTmpjbVZsYmk0bk93b2dJR052Ym5OMElIZGxkQ0E5SUNobUxuQnlaV05wY0dsMFlYUnBiMjVEYUdGdVkyVWdmSHdnTUNrZ1BqMGdOREFnZkh3Z0wzSmhhVzU4YzJodmQyVnlmSE4wYjNKdGZITnViM2N2YVM1MFpYTjBLR1l1YzJodmNuUkdiM0psWTJGemRDazdDaUFnY21WMGRYSnVJSGRsZENBL0lHQWtlMkpoYzJWOUlFSnlhVzVuSUdGdUlIVnRZbkpsYkd4aElHOXlJR0VnZDJGMFpYSndjbTl2WmlCcVlXTnJaWFF1WUNBNklHSmhjMlU3Q24wS0NtTnZibk4wSUdWelkyRndaVWgwYld3Z1BTQW9jeWtnUFQ0S0lDQlRkSEpwYm1jb2N5a3VjbVZ3YkdGalpTZ3ZXeVk4UGlJblhTOW5MQ0FvWXlrZ1BUNGdLSHNnSnlZbk9pQW5KbUZ0Y0RzbkxDQW5QQ2M2SUNjbWJIUTdKeXdnSno0bk9pQW5KbWQwT3ljc0lDY2lKem9nSnlaeGRXOTBPeWNzSUNJbklqb2dKeVlqTXprN0p5QjlXMk5kS1NrN0Nnb3ZMeUJUYUdGeVpXUWdZbmtnZEdobElIZGxZaUJ3WVdkbElHRnVaQ0IwYUdVZ1NsTlBUaUJsYm1Sd2IybHVkQzRnVW1WMGRYSnVjeUI3SUhOMFlYUjFjeXdnWW05a2VTQjlMZ3BoYzNsdVl5Qm1kVzVqZEdsdmJpQm5aWFJCWkhacFkyVW9lbWx3S1NCN0NpQWdhV1lnS0NFdlhseGtlelY5SkM4dWRHVnpkQ2g2YVhBcEtTQjdDaUFnSUNCc2IyY29KMkZrZG1salpWOXlaV3BsWTNSbFpDY3NJSHNnY21WaGMyOXVPaUFuYVc1MllXeHBaRjk2YVhBbklIMHBPd29nSUNBZ2NtVjBkWEp1SUhzZ2MzUmhkSFZ6T2lBME1EQXNJR0p2WkhrNklIc2daWEp5YjNJNklDZHBiblpoYkdsa1gzcHBjQ2NzSUcxbGMzTmhaMlU2SUNkSGFYWmxJR0VnTlNCa2FXZHBkQ0JWVXlCNmFYQWdZMjlrWlM0bklIMGdmVHNLSUNCOUNpQWdZMjl1YzNRZ2MzUmhjblJsWkNBOUlFUmhkR1V1Ym05M0tDazdDaUFnYkc5bktDZGhaSFpwWTJWZmNtVnhkV1Z6ZENjc0lIc2dlbWx3SUgwcE93b0tJQ0JzWlhRZ2QyVmhkR2hsY2pzS0lDQjBjbmtnZXdvZ0lDQWdZMjl1YzNRZ2NtVnpJRDBnWVhkaGFYUWdabVYwWTJnb1lDUjdWMFZCVkVoRlVsOVZVa3g5TDNkbFlYUm9aWEkvZW1sd1BTUjdlbWx3ZldBc0lIc2djMmxuYm1Gc09pQkJZbTl5ZEZOcFoyNWhiQzUwYVcxbGIzVjBLREl3TURBd0tTQjlLVHNLSUNBZ0lHbG1JQ2h5WlhNdWMzUmhkSFZ6SUQwOVBTQTBNREFnZkh3Z2NtVnpMbk4wWVhSMWN5QTlQVDBnTkRBMEtTQjdDaUFnSUNBZ0lHeHZaeWduWVdSMmFXTmxYM0psYW1WamRHVmtKeXdnZXlCeVpXRnpiMjQ2SUNkM1pXRjBhR1Z5WHljZ0t5QnlaWE11YzNSaGRIVnpMQ0I2YVhBZ2ZTazdDaUFnSUNBZ0lISmxkSFZ5YmlCN0lITjBZWFIxY3pvZ2NtVnpMbk4wWVhSMWN5d2dZbTlrZVRvZ1lYZGhhWFFnY21WekxtcHpiMjRvS1NCOU93b2dJQ0FnZlFvZ0lDQWdhV1lnS0NGeVpYTXViMnNwSUhSb2NtOTNJRzVsZHlCRmNuSnZjaWduZDJWaGRHaGxjbDl6ZEdGMGRYTmZKeUFySUhKbGN5NXpkR0YwZFhNcE93b2dJQ0FnZDJWaGRHaGxjaUE5SUdGM1lXbDBJSEpsY3k1cWMyOXVLQ2s3Q2lBZ2ZTQmpZWFJqYUNBb1pYSnlLU0I3Q2lBZ0lDQnNiMmNvSjNkbFlYUm9aWEpmWTJGc2JGOW1ZV2xzWldRbkxDQjdJSHBwY0N3Z2JXVnpjMkZuWlRvZ1pYSnlMbTFsYzNOaFoyVWdmU2s3Q2lBZ0lDQnlaWFIxY200Z2V5QnpkR0YwZFhNNklEVXdNaXdnWW05a2VUb2dleUJsY25KdmNqb2dKM2RsWVhSb1pYSmZjMlZ5ZG1salpWOTFibUYyWVdsc1lXSnNaU2NnZlNCOU93b2dJSDBLQ2lBZ2JHVjBJR0ZrZG1salpTd2djMjkxY21ObE93b2dJSFJ5ZVNCN0NpQWdJQ0JoWkhacFkyVWdQU0JoZDJGcGRDQmhjMnRIWlcxcGJta29ZblZwYkdSUWNtOXRjSFFvZDJWaGRHaGxjaWtwT3dvZ0lDQWdjMjkxY21ObElEMGdKMmRsYldsdWFTYzdDaUFnZlNCallYUmphQ0FvWlhKeUtTQjdDaUFnSUNCc2IyY29KMmRsYldsdWFWOWxjbkp2Y2ljc0lIc2dlbWx3TENCemRHRjBkWE02SUdWeWNpNXpkR0YwZFhNZ2ZId2dNQ3dnY21WaGMyOXVPaUJsY25JdWJtRnRaU0E5UFQwZ0oxUnBiV1Z2ZFhSRmNuSnZjaWNnUHlBbmRHbHRaVzkxZENjZ09pQmxjbkl1YldWemMyRm5aU0I5S1RzS0lDQWdJR0ZrZG1salpTQTlJR1poYkd4aVlXTnJRV1IyYVdObEtIZGxZWFJvWlhJdVptOXlaV05oYzNRcE93b2dJQ0FnYzI5MWNtTmxJRDBnSjJaaGJHeGlZV05ySnpzS0lDQjlDaUFnYkc5bktDZGhaSFpwWTJWZmMzVmpZMlZ6Y3ljc0lIc2dlbWx3TENCemIzVnlZMlVzSUcxek9pQkVZWFJsTG01dmR5Z3BJQzBnYzNSaGNuUmxaQ0I5S1RzS0lDQnlaWFIxY200Z2V5QnpkR0YwZFhNNklESXdNQ3dnWW05a2VUb2dleUF1TGk1M1pXRjBhR1Z5TENCaFpIWnBZMlVzSUhOdmRYSmpaU3dnYlc5a1pXdzZJSE52ZFhKalpTQTlQVDBnSjJkbGJXbHVhU2NnUHlCSFJVMUpUa2xmVFU5RVJVd2dPaUJ1ZFd4c0lIMGdmVHNLZlFvS1lYQndMbWRsZENnbkwyRmtkbWxqWlNjc0lHRnplVzVqSUNoeVpYRXNJSEpsY3lrZ1BUNGdld29nSUdOdmJuTjBJSHNnYzNSaGRIVnpMQ0JpYjJSNUlIMGdQU0JoZDJGcGRDQm5aWFJCWkhacFkyVW9VM1J5YVc1bktISmxjUzV4ZFdWeWVTNTZhWEFnZkh3Z0p5Y3BLVHNLSUNCeVpYTXVjM1JoZEhWektITjBZWFIxY3lrdWFuTnZiaWhpYjJSNUtUc0tmU2s3Q2dwaGNIQXVaMlYwS0Njdkp5d2dZWE41Ym1NZ0tISmxjU3dnY21WektTQTlQaUI3Q2lBZ1kyOXVjM1FnWm05eWJTQTlJR0E4Wm05eWJTQnRaWFJvYjJROUlrZEZWQ0lnWVdOMGFXOXVQU0l2SWo0S0lDQWdJQ0FnUEd4aFltVnNQbFZUSUhwcGNDQmpiMlJsSUR4cGJuQjFkQ0J1WVcxbFBTSjZhWEFpSUhCaGRIUmxjbTQ5SWxzd0xUbGRlelY5SWlCdFlYaHNaVzVuZEdnOUlqVWlJSEpsY1hWcGNtVmtQand2YkdGaVpXdytDaUFnSUNBZ0lEeGlkWFIwYjI0Z2RIbHdaVDBpYzNWaWJXbDBJajVYYUdGMElITm9iM1ZzWkNCSklIZGxZWEkvUEM5aWRYUjBiMjQrQ2lBZ0lDQThMMlp2Y20wK1lEc0tJQ0JzWlhRZ2NtVnpkV3gwSUQwZ0p5YzdDaUFnYVdZZ0tISmxjUzV4ZFdWeWVTNTZhWEFwSUhzS0lDQWdJR052Ym5OMElIc2djM1JoZEhWekxDQmliMlI1SUgwZ1BTQmhkMkZwZENCblpYUkJaSFpwWTJVb1UzUnlhVzVuS0hKbGNTNXhkV1Z5ZVM1NmFYQXBLVHNLSUNBZ0lHbG1JQ2h6ZEdGMGRYTWdQVDA5SURJd01Da2dld29nSUNBZ0lDQmpiMjV6ZENCbUlEMGdZbTlrZVM1bWIzSmxZMkZ6ZERzS0lDQWdJQ0FnY21WemRXeDBJRDBnWUR4b01qNGtlMlZ6WTJGd1pVaDBiV3dvWW05a2VTNWphWFI1S1gwc0lDUjdaWE5qWVhCbFNIUnRiQ2hpYjJSNUxuTjBZWFJsS1gwZ0pIdGxjMk5oY0dWSWRHMXNLR0p2WkhrdWVtbHdLWDA4TDJneVBnb2dJQ0FnSUNBZ0lEeHdQaVI3WlhOallYQmxTSFJ0YkNobUxtNWhiV1VwZlRvZ0pIdGxjMk5oY0dWSWRHMXNLR1l1ZEdWdGNHVnlZWFIxY21VcGZTQWtlMlZ6WTJGd1pVaDBiV3dvWmk1MFpXMXdaWEpoZEhWeVpWVnVhWFFwZlN3S0lDQWdJQ0FnSUNBa2UyVnpZMkZ3WlVoMGJXd29aaTV6YUc5eWRFWnZjbVZqWVhOMEtYMHNJSGRwYm1RZ0pIdGxjMk5oY0dWSWRHMXNLR1l1ZDJsdVpGTndaV1ZrS1gwOEwzQStDaUFnSUNBZ0lDQWdQSEErUEhOMGNtOXVaejRrZTJWelkyRndaVWgwYld3b1ltOWtlUzVoWkhacFkyVXBmVHd2YzNSeWIyNW5Qand2Y0Q0S0lDQWdJQ0FnSUNBOGNENDhjMjFoYkd3K1UzVm5aMlZ6ZEdsdmJpQnpiM1Z5WTJVNklDUjdaWE5qWVhCbFNIUnRiQ2hpYjJSNUxuTnZkWEpqWlNsOVBDOXpiV0ZzYkQ0OEwzQStZRHNLSUNBZ0lIMGdaV3h6WlNCN0NpQWdJQ0FnSUhKbGMzVnNkQ0E5SUdBOGNENVRiM0p5ZVRvZ0pIdGxjMk5oY0dWSWRHMXNLR0p2WkhrdVpYSnliM0lwZlR3dmNENWdPd29nSUNBZ2ZRb2dJSDBLSUNCeVpYTXVjMlZ1WkNoZ1BHZ3hQbGRsWVhSb1pYSWdRV1IyYVhOdmNqd3ZhREUrSkh0bWIzSnRmU1I3Y21WemRXeDBmV0FwT3dwOUtUc0tDbUZ3Y0M1c2FYTjBaVzRvVUU5U1ZDd2dLQ2tnUFQ0Z2JHOW5LQ2RoWkhacGMyOXlYM04wWVhKMFpXUW5MQ0I3SUhCdmNuUTZJRkJQVWxRc0lHMXZaR1ZzT2lCSFJVMUpUa2xmVFU5RVJVd2dmU2twT3dvPSIgfCBiYXNlNjQgLWQgPiAvb3B0L2FwcC9hcHAuanMKZWNobyAiZXdvZ0lDSnVZVzFsSWpvZ0ltRmtkbWx6YjNJdFlYQndJaXdLSUNBaWRtVnljMmx2YmlJNklDSXhMakF1TUNJc0NpQWdJbTFoYVc0aU9pQWlZWEJ3TG1weklpd0tJQ0FpWkdWd1pXNWtaVzVqYVdWeklqb2dld29nSUNBZ0ltVjRjSEpsYzNNaU9pQWlYalF1TVRrdU1pSXNDaUFnSUNBaVFHRjNjeTF6WkdzdlkyeHBaVzUwTFhOemJTSTZJQ0plTXk0Mk1EQXVNQ0lLSUNCOUNuMEsiIHwgYmFzZTY0IC1kID4gL29wdC9hcHAvcGFja2FnZS5qc29uCmNkIC9vcHQvYXBwCm5wbSBpbnN0YWxsIC0tb21pdD1kZXYKCmNhdCA+IC9ldGMvc3lzdGVtZC9zeXN0ZW0vYWR2aXNvci5zZXJ2aWNlIDw8ICdTRVJWSUNFJwpbVW5pdF0KRGVzY3JpcHRpb249YWR2aXNvciBhcHAKQWZ0ZXI9bmV0d29yay50YXJnZXQKCltTZXJ2aWNlXQpFbnZpcm9ubWVudD1QT1JUPTMwMDAKRW52aXJvbm1lbnQ9QVdTX1JFR0lPTj11cy1lYXN0LTIKRW52aXJvbm1lbnQ9IkdFTUlOSV9LRVlfUEFSQU09L2l0bW8tNDQ0LTU0NC1sYWIwNy9nZW1pbmktYXBpLWtleSIKRW52aXJvbm1lbnQ9IkdFTUlOSV9NT0RFTD1nZW1pbmktMy4xLWZsYXNoLWxpdGUiCkVudmlyb25tZW50PSJLRVlfQ0FDSEVfU0VDT05EUz02MCIKRW52aXJvbm1lbnQ9IldFQVRIRVJfVVJMPWh0dHA6Ly9pdG1vLTQ0NC01NDQtbGFiMDctYWxiLTIyNjkzNjE0Ni51cy1lYXN0LTIuZWxiLmFtYXpvbmF3cy5jb206ODA4MCIKV29ya2luZ0RpcmVjdG9yeT0vb3B0L2FwcApFeGVjU3RhcnQ9L3Vzci9iaW4vbm9kZSAvb3B0L2FwcC9hcHAuanMKUmVzdGFydD1hbHdheXMKVXNlcj1lYzItdXNlcgoKW0luc3RhbGxdCldhbnRlZEJ5PW11bHRpLXVzZXIudGFyZ2V0ClNFUlZJQ0UKCmNob3duIC1SIGVjMi11c2VyOmVjMi11c2VyIC9vcHQvYXBwCnN5c3RlbWN0bCBkYWVtb24tcmVsb2FkCnN5c3RlbWN0bCBlbmFibGUgYWR2aXNvci5zZXJ2aWNlCnN5c3RlbWN0bCBzdGFydCBhZHZpc29yLnNlcnZpY2UK" -> null
+      - vpc_security_group_ids               = [
+          - "sg-0b3fa609f1e21e658",
+        ] -> null
+        # (6 unchanged attributes hidden)
+
+      - iam_instance_profile {
+          - name = "itmo-444-544-lab07-advisor-profile" -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - tag_specifications {
+          - resource_type = "instance" -> null
+          - tags          = {
+              - "Name" = "advisor-app"
+            } -> null
+        }
+    }
+
+  # aws_launch_template.tier["weather"] will be destroyed
+  - resource "aws_launch_template" "tier" {
+      - arn                                  = "arn:aws:ec2:us-east-2:[ACCOUNT_ID_REDACTED]:launch-template/lt-0e14d28f042b745a6" -> null
+      - default_version                      = 3 -> null
+      - disable_api_stop                     = false -> null
+      - disable_api_termination              = false -> null
+      - id                                   = "lt-0e14d28f042b745a6" -> null
+      - image_id                             = "ami-00a8036df57dec356" -> null
+      - instance_type                        = "t3.micro" -> null
+      - key_name                             = "ITMO-444-544-lab-keypair" -> null
+      - latest_version                       = 3 -> null
+      - name                                 = "itmo-444-544-lab07-weather-lt" -> null
+      - security_group_names                 = [] -> null
+      - tags                                 = {} -> null
+      - tags_all                             = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - update_default_version               = true -> null
+      - user_data                            = "IyEvYmluL2Jhc2gKZG5mIHVwZGF0ZSAteQpkbmYgaW5zdGFsbCAteSBub2RlanMKbWtkaXIgLXAgL29wdC9hcHAKZWNobyAiWTI5dWMzUWdaWGh3Y21WemN5QTlJSEpsY1hWcGNtVW9KMlY0Y0hKbGMzTW5LVHNLWTI5dWMzUWdleUJFZVc1aGJXOUVRa05zYVdWdWRDQjlJRDBnY21WeGRXbHlaU2duUUdGM2N5MXpaR3N2WTJ4cFpXNTBMV1I1Ym1GdGIyUmlKeWs3Q21OdmJuTjBJSHNnUkhsdVlXMXZSRUpFYjJOMWJXVnVkRU5zYVdWdWRDd2dSMlYwUTI5dGJXRnVaQ3dnVUhWMFEyOXRiV0Z1WkN3Z1UyTmhia052YlcxaGJtUWdmU0E5SUhKbGNYVnBjbVVvSjBCaGQzTXRjMlJyTDJ4cFlpMWtlVzVoYlc5a1lpY3BPd29LWTI5dWMzUWdZWEJ3SUQwZ1pYaHdjbVZ6Y3lncE93cGpiMjV6ZENCUVQxSlVJRDBnY0hKdlkyVnpjeTVsYm5ZdVVFOVNWQ0I4ZkNBek1EQXdPd3BqYjI1emRDQmFTVkJmUVZCSklEMGdjSEp2WTJWemN5NWxibll1V2tsUVgwRlFTVjlDUVZORklIeDhJQ2RvZEhSd2N6b3ZMMkZ3YVM1NmFYQndiM0J2ZEdGdExuVnpKenNLWTI5dWMzUWdUbGRUWDBGUVNTQTlJSEJ5YjJObGMzTXVaVzUyTGs1WFUxOUJVRWxmUWtGVFJTQjhmQ0FuYUhSMGNITTZMeTloY0drdWQyVmhkR2hsY2k1bmIzWW5Pd292THlCVWFHVWdUbUYwYVc5dVlXd2dWMlZoZEdobGNpQlRaWEoyYVdObElHRnphM01nWlhabGNua2dZMnhwWlc1MElIUnZJR2xrWlc1MGFXWjVJR2wwYzJWc1ppNEtZMjl1YzNRZ1ZWTkZVbDlCUjBWT1ZDQTlJSEJ5YjJObGMzTXVaVzUyTGs1WFUxOVZVMFZTWDBGSFJVNVVJSHg4SUNjb2FYUnRieTAwTkRRdE5UUTBJSGRsWVhSb1pYSWdiR0ZpTENCemRIVmtaVzUwUUdWNFlXMXdiR1V1WTI5dEtTYzdDZ292THlCWGFYUm9JRzV2SUZkRlFWUklSVkpmVkVGQ1RFVWdkR2hsSUhObGNuWnBZMlVnYzNScGJHd2dkMjl5YTNNc0lHbDBJR3AxYzNRZ1pHOWxjeUJ1YjNRZ2MzUnZjbVVnWVc1NWRHaHBibWN1Q21OdmJuTjBJRlJCUWt4RklEMGdjSEp2WTJWemN5NWxibll1VjBWQlZFaEZVbDlVUVVKTVJUc0tZMjl1YzNRZ1EwRkRTRVZmVTBWRFQwNUVVeUE5SUU1MWJXSmxjaWh3Y205alpYTnpMbVZ1ZGk1RFFVTklSVjlUUlVOUFRrUlRJSHg4SURZd01DazdDbU52Ym5OMElFdEZSVkJmVTBWRFQwNUVVeUE5SURnMk5EQXdPeUF2THlCRWVXNWhiVzlFUWlCa1pXeGxkR1Z6SUhOaGRtVmtJR3h2YjJ0MWNITWdZV0p2ZFhRZ1lTQmtZWGtnWVdaMFpYSWdkR2hsZVNCM1pYSmxJRzFoWkdVS1kyOXVjM1FnUkVKZlVrVlVVbGxmVFZNZ1BTQXpNREF3TURzZ0x5OGdZV1owWlhJZ1lTQmtZWFJoWW1GelpTQm1ZV2xzZFhKbExDQnNaV0YyWlNCMGFHVWdaR0YwWVdKaGMyVWdZV3h2Ym1VZ1ptOXlJRE13SUhObFkyOXVaSE1LQ2k4dklFUlpUa0ZOVDBSQ1gwVk9SRkJQU1U1VUlHbHpJR1p2Y2lCc2IyTmhiQ0IwWlhOMGFXNW5JRzl1YkhrdUlFOXVJRVZETWlCMGFHVWdVMFJMSUdacGJtUnpJSFJvWlNCeVpXZHBiMjRnWVc1a0lIUm9aU0J5YjJ4bElHbDBjMlZzWmk0S1kyOXVjM1FnWkdSaUlEMGdSSGx1WVcxdlJFSkViMk4xYldWdWRFTnNhV1Z1ZEM1bWNtOXRLRzVsZHlCRWVXNWhiVzlFUWtOc2FXVnVkQ2g3Q2lBZ2NtVm5hVzl1T2lCd2NtOWpaWE56TG1WdWRpNUJWMU5mVWtWSFNVOU9MQW9nSUM0dUxpaHdjbTlqWlhOekxtVnVkaTVFV1U1QlRVOUVRbDlGVGtSUVQwbE9WQ0EvSUhzZ1pXNWtjRzlwYm5RNklIQnliMk5sYzNNdVpXNTJMa1JaVGtGTlQwUkNYMFZPUkZCUFNVNVVJSDBnT2lCN2ZTa3NDaUFnYldGNFFYUjBaVzF3ZEhNNklESXNDbjBwS1RzS0NtTnZibk4wSUd4dlp5QTlJQ2hsZG1WdWRDd2dabWxsYkdSeklEMGdlMzBwSUQwK0NpQWdZMjl1YzI5c1pTNXNiMmNvU2xOUFRpNXpkSEpwYm1kcFpua29leUIwY3pvZ2JtVjNJRVJoZEdVb0tTNTBiMGxUVDFOMGNtbHVaeWdwTENCbGRtVnVkQ3dnTGk0dVptbGxiR1J6SUgwcEtUc0tDbU5zWVhOeklGVndjM1J5WldGdFJYSnliM0lnWlhoMFpXNWtjeUJGY25KdmNpQjdDaUFnWTI5dWMzUnlkV04wYjNJb2MzUmhaMlVzSUhOMFlYUjFjeWtnZXdvZ0lDQWdjM1Z3WlhJb1lDUjdjM1JoWjJWOUlHWmhhV3hsWkdBcE93b2dJQ0FnZEdocGN5NXpkR0ZuWlNBOUlITjBZV2RsT3dvZ0lDQWdkR2hwY3k1emRHRjBkWE1nUFNCemRHRjBkWE03Q2lBZ2ZRcDlDZ292THlCR1pYUmphQ0JLVTA5T0lIZHBkR2dnWVNCMGFXMWxiM1YwSUdGdVpDQnZibVVnY21WMGNua3VJRkpsZEhWeWJuTWdiblZzYkNCdmJpQmhJRFF3TkN3Z2RHaHliM2R6SUZWd2MzUnlaV0Z0UlhKeWIzSWdiM1JvWlhKM2FYTmxMZ3BoYzNsdVl5Qm1kVzVqZEdsdmJpQm1aWFJqYUVwemIyNG9jM1JoWjJVc0lIVnliQ3dnYUdWaFpHVnljeUE5SUh0OUtTQjdDaUFnYkdWMElITjBZWFIxY3lBOUlEQTdDaUFnWm05eUlDaHNaWFFnWVhSMFpXMXdkQ0E5SURFN0lHRjBkR1Z0Y0hRZ1BEMGdNanNnWVhSMFpXMXdkQ3NyS1NCN0NpQWdJQ0IwY25rZ2V3b2dJQ0FnSUNCamIyNXpkQ0J5WlhNZ1BTQmhkMkZwZENCbVpYUmphQ2gxY213c0lIc2dhR1ZoWkdWeWN5d2djMmxuYm1Gc09pQkJZbTl5ZEZOcFoyNWhiQzUwYVcxbGIzVjBLRGd3TURBcElIMHBPd29nSUNBZ0lDQnpkR0YwZFhNZ1BTQnlaWE11YzNSaGRIVnpPd29nSUNBZ0lDQnBaaUFvY21WekxtOXJLU0J5WlhSMWNtNGdZWGRoYVhRZ2NtVnpMbXB6YjI0b0tUc0tJQ0FnSUNBZ2FXWWdLSEpsY3k1emRHRjBkWE1nUFQwOUlEUXdOQ2tnY21WMGRYSnVJRzUxYkd3N0NpQWdJQ0FnSUdsbUlDaHlaWE11YzNSaGRIVnpJRHdnTlRBd0lDWW1JSEpsY3k1emRHRjBkWE1nSVQwOUlEUXlPU2tnWW5KbFlXczdJQzh2SUdFZ1kyeHBaVzUwSUdWeWNtOXlJSGRwYkd3Z2JtOTBJR1pwZUNCcGRITmxiR1lLSUNBZ0lIMGdZMkYwWTJnZ0tHVnljaWtnZXdvZ0lDQWdJQ0J6ZEdGMGRYTWdQU0F3T3lBdkx5QjBhVzFsYjNWMElHOXlJRzVsZEhkdmNtc2dabUZwYkhWeVpRb2dJQ0FnZlFvZ0lDQWdhV1lnS0dGMGRHVnRjSFFnUENBeUtTQmhkMkZwZENCdVpYY2dVSEp2YldselpTZ29jbVZ6YjJ4MlpTa2dQVDRnYzJWMFZHbHRaVzkxZENoeVpYTnZiSFpsTENBMU1EQXBLVHNLSUNCOUNpQWdkR2h5YjNjZ2JtVjNJRlZ3YzNSeVpXRnRSWEp5YjNJb2MzUmhaMlVzSUhOMFlYUjFjeWs3Q24wS0NpOHZJQzB0TFMwZ1JHRjBZV0poYzJVZ2FHVnNjR1Z5Y3lBdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMEtiR1YwSUdSaVVtVjBjbmxCZENBOUlEQTdDZ292THlCU2RXNGdiMjVsSUdSaGRHRmlZWE5sSUdOaGJHd3VJRUZ1ZVNCbVlXbHNkWEpsSUdseklHeHZaMmRsWkN3Z1lXNWtJSFJvWlNCa1lYUmhZbUZ6WlNCcGN5QnphMmx3Y0dWa0lHWnZjaUJoSUhOb2IzSjBJSFJwYldVc0NpOHZJSE52SUdFZ1luSnZhMlZ1SUdSaGRHRmlZWE5sSUdOdmMzUnpJR1ZoWTJnZ2NtVnhkV1Z6ZENCdWIzUm9hVzVuSUdsdWMzUmxZV1FnYjJZZ1lTQjNZV2wwTGdwaGMzbHVZeUJtZFc1amRHbHZiaUIzYVhSb1JHSW9jM1JoWjJVc0lHWnVLU0I3Q2lBZ2FXWWdLQ0ZVUVVKTVJTa2djbVYwZFhKdUlIc2djM1JoZEdVNklDZGthWE5oWW14bFpDY2dmVHNLSUNCcFppQW9SR0YwWlM1dWIzY29LU0E4SUdSaVVtVjBjbmxCZENrZ2NtVjBkWEp1SUhzZ2MzUmhkR1U2SUNkMWJtRjJZV2xzWVdKc1pTY2dmVHNLSUNCMGNua2dld29nSUNBZ2NtVjBkWEp1SUhzZ2MzUmhkR1U2SUNkdmF5Y3NJSFpoYkhWbE9pQmhkMkZwZENCbWJpZ3BJSDA3Q2lBZ2ZTQmpZWFJqYUNBb1pYSnlLU0I3Q2lBZ0lDQmtZbEpsZEhKNVFYUWdQU0JFWVhSbExtNXZkeWdwSUNzZ1JFSmZVa1ZVVWxsZlRWTTdDaUFnSUNCc2IyY29KMlJpWDJWeWNtOXlKeXdnZXlCemRHRm5aU3dnYldWemMyRm5aVG9nWlhKeUxtNWhiV1VnS3lBbk9pQW5JQ3NnWlhKeUxtMWxjM05oWjJVZ2ZTazdDaUFnSUNCeVpYUjFjbTRnZXlCemRHRjBaVG9nSjNWdVlYWmhhV3hoWW14bEp5QjlPd29nSUgwS2ZRb0tMeThnVDI1bElHbDBaVzBnY0dWeUlIcHBjQ0JqYjJSbE9pQjBhR1VnYm1WM1pYTjBJR3h2YjJ0MWNDNGdVbVZoWkdsdVp5QnBkQ0JwY3lCMGFHVWdZMkZqYUdVZ1kyaGxZMnN1Q21OdmJuTjBJR1pwYm1SR2NtVnphQ0E5SUNoNmFYQXBJRDArSUhkcGRHaEVZaWduY21WaFpDY3NJR0Z6ZVc1aklDZ3BJRDArSUhzS0lDQmpiMjV6ZENCeUlEMGdZWGRoYVhRZ1pHUmlMbk5sYm1Rb2JtVjNJRWRsZEVOdmJXMWhibVFvZXlCVVlXSnNaVTVoYldVNklGUkJRa3hGTENCTFpYazZJSHNnZW1sd0lIMGdmU2twT3dvZ0lHTnZibk4wSUdsMFpXMGdQU0J5TGtsMFpXMDdDaUFnYVdZZ0tHbDBaVzBnSmlZZ1JHRjBaUzV1YjNjb0tTQXZJREV3TURBZ0xTQnBkR1Z0TG1OeVpXRjBaV1JCZENBOElFTkJRMGhGWDFORlEwOU9SRk1wSUhKbGRIVnliaUJwZEdWdExuQmhlV3h2WVdRN0NpQWdjbVYwZFhKdUlHNTFiR3c3Q24wcE93b0tZMjl1YzNRZ2MyRjJaVXh2YjJ0MWNDQTlJQ2g2YVhBc0lIQmhlV3h2WVdRcElEMCtJSGRwZEdoRVlpZ25kM0pwZEdVbkxDQW9LU0E5UGlCN0NpQWdZMjl1YzNRZ2JtOTNJRDBnVFdGMGFDNW1iRzl2Y2loRVlYUmxMbTV2ZHlncElDOGdNVEF3TUNrN0NpQWdjbVYwZFhKdUlHUmtZaTV6Wlc1a0tHNWxkeUJRZFhSRGIyMXRZVzVrS0hzS0lDQWdJRlJoWW14bFRtRnRaVG9nVkVGQ1RFVXNDaUFnSUNCSmRHVnRPaUI3SUhwcGNDd2djR0Y1Ykc5aFpDd2dZM0psWVhSbFpFRjBPaUJ1YjNjc0lHVjRjR2x5WlhOQmREb2dibTkzSUNzZ1MwVkZVRjlUUlVOUFRrUlRJSDBzQ2lBZ2ZTa3BPd3A5S1RzS0NpOHZJQzB0TFMwZ1VtOTFkR1Z6SUMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMEtZWEJ3TG1kbGRDZ25MeWNzSUNoeVpYRXNJSEpsY3lrZ1BUNGdld29nSUhKbGN5NXFjMjl1S0hzZ2MyVnlkbWxqWlRvZ0ozZGxZWFJvWlhJbkxDQjFjMkZuWlRvZ0p5OTNaV0YwYUdWeVAzcHBjRDAyTURZeE5pY3NJR2hwYzNSdmNuazZJQ2N2YUdsemRHOXllU2NnZlNrN0NuMHBPd29LTHk4Z1ZHaGxJSFJsYmlCdGIzTjBJSEpsWTJWdWRDQnNiMjlyZFhCekxpQlVhR1VnZEdGaWJHVWdhWE1nZEdsdWVTd2djMjhnWVNCVFkyRnVJR0Z1WkNCaElITnZjblFnYVhNZ1ptbHVaU0JtYjNJZ2RHaHBjeUJzWVdJdUNtRndjQzVuWlhRb0p5OW9hWE4wYjNKNUp5d2dZWE41Ym1NZ0tISmxjU3dnY21WektTQTlQaUI3Q2lBZ1kyOXVjM1FnY21WemRXeDBJRDBnWVhkaGFYUWdkMmwwYUVSaUtDZG9hWE4wYjNKNUp5d2dZWE41Ym1NZ0tDa2dQVDRnZXdvZ0lDQWdZMjl1YzNRZ2FYUmxiWE1nUFNCYlhUc0tJQ0FnSUd4bGRDQnJaWGs3Q2lBZ0lDQmtieUI3Q2lBZ0lDQWdJR052Ym5OMElISWdQU0JoZDJGcGRDQmtaR0l1YzJWdVpDaHVaWGNnVTJOaGJrTnZiVzFoYm1Rb2V5QlVZV0pzWlU1aGJXVTZJRlJCUWt4RkxDQkZlR05zZFhOcGRtVlRkR0Z5ZEV0bGVUb2dhMlY1TENCTWFXMXBkRG9nTVRBd0lIMHBLVHNLSUNBZ0lDQWdhWFJsYlhNdWNIVnphQ2d1TGk1eUxrbDBaVzF6S1RzS0lDQWdJQ0FnYTJWNUlEMGdjaTVNWVhOMFJYWmhiSFZoZEdWa1MyVjVPd29nSUNBZ2ZTQjNhR2xzWlNBb2EyVjVJQ1ltSUdsMFpXMXpMbXhsYm1kMGFDQThJRFV3TUNrN0NpQWdJQ0J5WlhSMWNtNGdhWFJsYlhNS0lDQWdJQ0FnTG5OdmNuUW9LR0VzSUdJcElEMCtJR0l1WTNKbFlYUmxaRUYwSUMwZ1lTNWpjbVZoZEdWa1FYUXBDaUFnSUNBZ0lDNXpiR2xqWlNnd0xDQXhNQ2tLSUNBZ0lDQWdMbTFoY0Nnb2FTa2dQVDRnS0hzS0lDQWdJQ0FnSUNCNmFYQTZJR2t1ZW1sd0xBb2dJQ0FnSUNBZ0lHTnBkSGs2SUdrdWNHRjViRzloWkM1amFYUjVMQW9nSUNBZ0lDQWdJSE4wWVhSbE9pQnBMbkJoZVd4dllXUXVjM1JoZEdVc0NpQWdJQ0FnSUNBZ2MyaHZjblJmWm05eVpXTmhjM1E2SUdrdWNHRjViRzloWkM1bWIzSmxZMkZ6ZEM1emFHOXlkRVp2Y21WallYTjBMQW9nSUNBZ0lDQWdJSFJsYlhCbGNtRjBkWEpsT2lCcExuQmhlV3h2WVdRdVptOXlaV05oYzNRdWRHVnRjR1Z5WVhSMWNtVXNDaUFnSUNBZ0lDQWdZM0psWVhSbFpGOWhkRG9nYm1WM0lFUmhkR1VvYVM1amNtVmhkR1ZrUVhRZ0tpQXhNREF3S1M1MGIwbFRUMU4wY21sdVp5Z3BMQW9nSUNBZ0lDQjlLU2s3Q2lBZ2ZTazdDaUFnYVdZZ0tISmxjM1ZzZEM1emRHRjBaU0E5UFQwZ0oyUnBjMkZpYkdWa0p5a2djbVYwZFhKdUlISmxjeTV6ZEdGMGRYTW9OVEF6S1M1cWMyOXVLSHNnWlhKeWIzSTZJQ2RrWVhSaFltRnpaVjlrYVhOaFlteGxaQ2NnZlNrN0NpQWdhV1lnS0hKbGMzVnNkQzV6ZEdGMFpTQTlQVDBnSjNWdVlYWmhhV3hoWW14bEp5a2djbVYwZFhKdUlISmxjeTV6ZEdGMGRYTW9OVEF6S1M1cWMyOXVLSHNnWlhKeWIzSTZJQ2RrWVhSaFltRnpaVjkxYm1GMllXbHNZV0pzWlNjZ2ZTazdDaUFnY21WMGRYSnVJSEpsY3k1cWMyOXVLSHNnWTI5MWJuUTZJSEpsYzNWc2RDNTJZV3gxWlM1c1pXNW5kR2dzSUd4dmIydDFjSE02SUhKbGMzVnNkQzUyWVd4MVpTQjlLVHNLZlNrN0NncGhjSEF1WjJWMEtDY3ZkMlZoZEdobGNpY3NJR0Z6ZVc1aklDaHlaWEVzSUhKbGN5a2dQVDRnZXdvZ0lHTnZibk4wSUhwcGNDQTlJRk4wY21sdVp5aHlaWEV1Y1hWbGNua3VlbWx3SUh4OElDY25LVHNLSUNCcFppQW9JUzllWEdSN05YMGtMeTUwWlhOMEtIcHBjQ2twSUhzS0lDQWdJR3h2WnlnbmQyVmhkR2hsY2w5eVpXcGxZM1JsWkNjc0lIc2djbVZoYzI5dU9pQW5hVzUyWVd4cFpGOTZhWEFuSUgwcE93b2dJQ0FnY21WMGRYSnVJSEpsY3k1emRHRjBkWE1vTkRBd0tTNXFjMjl1S0hzZ1pYSnliM0k2SUNkcGJuWmhiR2xrWDNwcGNDY3NJRzFsYzNOaFoyVTZJQ2RIYVhabElHRWdOU0JrYVdkcGRDQlZVeUI2YVhBZ1kyOWtaUzRuSUgwcE93b2dJSDBLQ2lBZ1kyOXVjM1FnYzNSaGNuUmxaQ0E5SUVSaGRHVXVibTkzS0NrN0NpQWdiRzluS0NkM1pXRjBhR1Z5WDNKbGNYVmxjM1FuTENCN0lIcHBjQ0I5S1RzS0NpQWdMeThnTUM0Z1NHRnpJR0Z1ZVc5dVpTQmhjMnRsWkNCbWIzSWdkR2hwY3lCNmFYQWdhVzRnZEdobElHeGhjM1FnWm1WM0lHMXBiblYwWlhNL0lGUm9aVzRnWVc1emQyVnlJR1p5YjIwZ1JIbHVZVzF2UkVJdUNpQWdZMjl1YzNRZ1kyRmphR1ZrSUQwZ1lYZGhhWFFnWm1sdVpFWnlaWE5vS0hwcGNDazdDaUFnYVdZZ0tHTmhZMmhsWkM1emRHRjBaU0E5UFQwZ0oyOXJKeUFtSmlCallXTm9aV1F1ZG1Gc2RXVXBJSHNLSUNBZ0lHeHZaeWduZDJWaGRHaGxjbDl6ZFdOalpYTnpKeXdnZXlCNmFYQXNJR05oWTJobE9pQW5hR2wwSnl3Z2JYTTZJRVJoZEdVdWJtOTNLQ2tnTFNCemRHRnlkR1ZrSUgwcE93b2dJQ0FnY21WMGRYSnVJSEpsY3k1cWMyOXVLSHNnTGk0dVkyRmphR1ZrTG5aaGJIVmxMQ0JqWVdOb1pUb2dKMmhwZENjZ2ZTazdDaUFnZlFvS0lDQjBjbmtnZXdvZ0lDQWdMeThnTVM0Z1ZHaGxJSGRsWVhSb1pYSWdRVkJKSUhkaGJuUnpJR052YjNKa2FXNWhkR1Z6TENCdWIzUWdlbWx3SUdOdlpHVnpMQ0J6YnlCc2IyOXJJSFJvWlNCNmFYQWdZMjlrWlNCMWNDQm1hWEp6ZEM0S0lDQWdJR052Ym5OMElHeHZiMnQxY0NBOUlHRjNZV2wwSUdabGRHTm9Tbk52YmlnbmVtbHdYMnh2YjJ0MWNDY3NJR0FrZTFwSlVGOUJVRWw5TDNWekx5UjdlbWx3ZldBcE93b2dJQ0FnYVdZZ0tDRnNiMjlyZFhBZ2ZId2dJV3h2YjJ0MWNDNXdiR0ZqWlhNZ2ZId2diRzl2YTNWd0xuQnNZV05sY3k1c1pXNW5kR2dnUFQwOUlEQXBJSHNLSUNBZ0lDQWdiRzluS0NkM1pXRjBhR1Z5WDNKbGFtVmpkR1ZrSnl3Z2V5QnlaV0Z6YjI0NklDZDZhWEJmYm05MFgyWnZkVzVrSnl3Z2VtbHdJSDBwT3dvZ0lDQWdJQ0J5WlhSMWNtNGdjbVZ6TG5OMFlYUjFjeWcwTURRcExtcHpiMjRvZXlCbGNuSnZjam9nSjNwcGNGOXViM1JmWm05MWJtUW5JSDBwT3dvZ0lDQWdmUW9nSUNBZ1kyOXVjM1FnY0d4aFkyVWdQU0JzYjI5cmRYQXVjR3hoWTJWeld6QmRPd29nSUNBZ1kyOXVjM1FnYkdGMElEMGdUblZ0WW1WeUtIQnNZV05sTG14aGRHbDBkV1JsS1M1MGIwWnBlR1ZrS0RRcE93b2dJQ0FnWTI5dWMzUWdiRzl1SUQwZ1RuVnRZbVZ5S0hCc1lXTmxMbXh2Ym1kcGRIVmtaU2t1ZEc5R2FYaGxaQ2cwS1RzS0NpQWdJQ0F2THlBeUxpQkJjMnNnVGxkVElIZG9hV05vSUdadmNtVmpZWE4wSUdkeWFXUWdZMjkyWlhKeklIUm9iM05sSUdOdmIzSmthVzVoZEdWekxnb2dJQ0FnWTI5dWMzUWdhR1ZoWkdWeWN5QTlJSHNnSjFWelpYSXRRV2RsYm5Rbk9pQlZVMFZTWDBGSFJVNVVMQ0JCWTJObGNIUTZJQ2RoY0hCc2FXTmhkR2x2Ymk5blpXOHJhbk52YmljZ2ZUc0tJQ0FnSUdOdmJuTjBJSEJ2YVc1MElEMGdZWGRoYVhRZ1ptVjBZMmhLYzI5dUtDZHVkM05mY0c5cGJuUnpKeXdnWUNSN1RsZFRYMEZRU1gwdmNHOXBiblJ6THlSN2JHRjBmU3drZTJ4dmJuMWdMQ0JvWldGa1pYSnpLVHNLSUNBZ0lHbG1JQ2doY0c5cGJuUXBJSHNLSUNBZ0lDQWdiRzluS0NkM1pXRjBhR1Z5WDNKbGFtVmpkR1ZrSnl3Z2V5QnlaV0Z6YjI0NklDZHViMTl1ZDNOZlkyOTJaWEpoWjJVbkxDQjZhWEFnZlNrN0NpQWdJQ0FnSUhKbGRIVnliaUJ5WlhNdWMzUmhkSFZ6S0RRd05Da3Vhbk52YmloN0lHVnljbTl5T2lBbmJtOWZibmR6WDJOdmRtVnlZV2RsSnlCOUtUc0tJQ0FnSUgwS0NpQWdJQ0F2THlBekxpQkdaWFJqYUNCMGFHVWdabTl5WldOaGMzUWdabTl5SUhSb1lYUWdaM0pwWkNCaGJtUWdhMlZsY0NCMGFHVWdabWx5YzNRZ2NHVnlhVzlrSUNodWIzY3NJRzl5SUhSb1pTQnVaWGgwSUdKc2IyTnJLUzRLSUNBZ0lHTnZibk4wSUdadmNtVmpZWE4wSUQwZ1lYZGhhWFFnWm1WMFkyaEtjMjl1S0NkdWQzTmZabTl5WldOaGMzUW5MQ0J3YjJsdWRDNXdjbTl3WlhKMGFXVnpMbVp2Y21WallYTjBMQ0JvWldGa1pYSnpLVHNLSUNBZ0lHTnZibk4wSUhCbGNtbHZaQ0E5SUdadmNtVmpZWE4wTG5CeWIzQmxjblJwWlhNdWNHVnlhVzlrYzFzd1hUc0tJQ0FnSUdOdmJuTjBJSEJ5WldOcGNDQTlJSEJsY21sdlpDNXdjbTlpWVdKcGJHbDBlVTltVUhKbFkybHdhWFJoZEdsdmJpQS9JSEJsY21sdlpDNXdjbTlpWVdKcGJHbDBlVTltVUhKbFkybHdhWFJoZEdsdmJpNTJZV3gxWlNBNklHNTFiR3c3Q2dvZ0lDQWdZMjl1YzNRZ1ltOWtlU0E5SUhzS0lDQWdJQ0FnZW1sd0xBb2dJQ0FnSUNCamFYUjVPaUJ3YkdGalpWc25jR3hoWTJVZ2JtRnRaU2RkTEFvZ0lDQWdJQ0J6ZEdGMFpUb2djR3hoWTJWYkozTjBZWFJsSUdGaVluSmxkbWxoZEdsdmJpZGRMQW9nSUNBZ0lDQnNZWFJwZEhWa1pUb2diR0YwTEFvZ0lDQWdJQ0JzYjI1bmFYUjFaR1U2SUd4dmJpd0tJQ0FnSUNBZ1ptOXlaV05oYzNRNklIc0tJQ0FnSUNBZ0lDQnVZVzFsT2lCd1pYSnBiMlF1Ym1GdFpTd0tJQ0FnSUNBZ0lDQjBaVzF3WlhKaGRIVnlaVG9nY0dWeWFXOWtMblJsYlhCbGNtRjBkWEpsTEFvZ0lDQWdJQ0FnSUhSbGJYQmxjbUYwZFhKbFZXNXBkRG9nY0dWeWFXOWtMblJsYlhCbGNtRjBkWEpsVlc1cGRDd0tJQ0FnSUNBZ0lDQnphRzl5ZEVadmNtVmpZWE4wT2lCd1pYSnBiMlF1YzJodmNuUkdiM0psWTJGemRDd0tJQ0FnSUNBZ0lDQjNhVzVrVTNCbFpXUTZJSEJsY21sdlpDNTNhVzVrVTNCbFpXUXNDaUFnSUNBZ0lDQWdjSEpsWTJsd2FYUmhkR2x2YmtOb1lXNWpaVG9nY0hKbFkybHdMQW9nSUNBZ0lDQWdJR2x6UkdGNWRHbHRaVG9nY0dWeWFXOWtMbWx6UkdGNWRHbHRaU3dLSUNBZ0lDQWdmU3dLSUNBZ0lIMDdDZ29nSUNBZ0x5OGdOQzRnUzJWbGNDQmhJR052Y0hrdUlGUm9hWE1nYVhNZ1ltOTBhQ0IwYUdVZ1kyRmphR1VnWm05eUlIUm9aU0J1WlhoMElHTmhiR3hsY2lCaGJtUWdkR2hsSUdocGMzUnZjbmt1Q2lBZ0lDQmpiMjV6ZENCellYWmxaQ0E5SUdGM1lXbDBJSE5oZG1WTWIyOXJkWEFvZW1sd0xDQmliMlI1S1RzS0lDQWdJR052Ym5OMElHTmhZMmhsSUQwZ2MyRjJaV1F1YzNSaGRHVWdQVDA5SUNkdmF5Y2dQeUFuYldsemN5Y2dPaUJ6WVhabFpDNXpkR0YwWlRzZ0x5OGdKMjFwYzNNbkxDQW5aR2x6WVdKc1pXUW5JRzl5SUNkMWJtRjJZV2xzWVdKc1pTY0tJQ0FnSUd4dlp5Z25kMlZoZEdobGNsOXpkV05qWlhOekp5d2dleUI2YVhBc0lHTmhZMmhsTENCdGN6b2dSR0YwWlM1dWIzY29LU0F0SUhOMFlYSjBaV1FnZlNrN0NpQWdJQ0J5WlhSMWNtNGdjbVZ6TG1wemIyNG9leUF1TGk1aWIyUjVMQ0JqWVdOb1pTQjlLVHNLSUNCOUlHTmhkR05vSUNobGNuSXBJSHNLSUNBZ0lHbG1JQ2hsY25JZ2FXNXpkR0Z1WTJWdlppQlZjSE4wY21WaGJVVnljbTl5S1NCN0NpQWdJQ0FnSUd4dlp5Z25kMlZoZEdobGNsOWxjbkp2Y2ljc0lIc2dlbWx3TENCemRHRm5aVG9nWlhKeUxuTjBZV2RsTENCemRHRjBkWE02SUdWeWNpNXpkR0YwZFhNZ2ZTazdDaUFnSUNBZ0lISmxkSFZ5YmlCeVpYTXVjM1JoZEhWektEVXdNaWt1YW5OdmJpaDdJR1Z5Y205eU9pQW5kWEJ6ZEhKbFlXMWZaWEp5YjNJbkxDQnpkR0ZuWlRvZ1pYSnlMbk4wWVdkbElIMHBPd29nSUNBZ2ZRb2dJQ0FnYkc5bktDZDNaV0YwYUdWeVgyVnljbTl5Snl3Z2V5QjZhWEFzSUhOMFlXZGxPaUFuYVc1MFpYSnVZV3duTENCdFpYTnpZV2RsT2lCbGNuSXViV1Z6YzJGblpTQjlLVHNLSUNBZ0lISmxkSFZ5YmlCeVpYTXVjM1JoZEhWektEVXdNQ2t1YW5OdmJpaDdJR1Z5Y205eU9pQW5hVzUwWlhKdVlXeGZaWEp5YjNJbklIMHBPd29nSUgwS2ZTazdDZ3BoY0hBdWJHbHpkR1Z1S0ZCUFVsUXNJQ2dwSUQwK0lHeHZaeWduZDJWaGRHaGxjbDl6ZEdGeWRHVmtKeXdnZXlCd2IzSjBPaUJRVDFKVUxDQjBZV0pzWlRvZ1ZFRkNURVVnZkh3Z2JuVnNiQ0I5S1NrN0NnPT0iIHwgYmFzZTY0IC1kID4gL29wdC9hcHAvYXBwLmpzCmVjaG8gImV3b2dJQ0p1WVcxbElqb2dJbmRsWVhSb1pYSXRZWEJ3SWl3S0lDQWlkbVZ5YzJsdmJpSTZJQ0l4TGpBdU1DSXNDaUFnSW0xaGFXNGlPaUFpWVhCd0xtcHpJaXdLSUNBaVpHVndaVzVrWlc1amFXVnpJam9nZXdvZ0lDQWdJa0JoZDNNdGMyUnJMMk5zYVdWdWRDMWtlVzVoYlc5a1lpSTZJQ0plTXk0Mk1EQXVNQ0lzQ2lBZ0lDQWlRR0YzY3kxelpHc3ZiR2xpTFdSNWJtRnRiMlJpSWpvZ0lsNHpMall3TUM0d0lpd0tJQ0FnSUNKbGVIQnlaWE56SWpvZ0lsNDBMakU1TGpJaUNpQWdmUXA5Q2c9PSIgfCBiYXNlNjQgLWQgPiAvb3B0L2FwcC9wYWNrYWdlLmpzb24KY2QgL29wdC9hcHAKbnBtIGluc3RhbGwgLS1vbWl0PWRldgoKY2F0ID4gL2V0Yy9zeXN0ZW1kL3N5c3RlbS93ZWF0aGVyLnNlcnZpY2UgPDwgJ1NFUlZJQ0UnCltVbml0XQpEZXNjcmlwdGlvbj13ZWF0aGVyIGFwcApBZnRlcj1uZXR3b3JrLnRhcmdldAoKW1NlcnZpY2VdCkVudmlyb25tZW50PVBPUlQ9MzAwMApFbnZpcm9ubWVudD1BV1NfUkVHSU9OPXVzLWVhc3QtMgpFbnZpcm9ubWVudD0iQ0FDSEVfU0VDT05EUz02MDAiCkVudmlyb25tZW50PSJOV1NfVVNFUl9BR0VOVD0oaXRtby00NDQtNTQ0IHdlYXRoZXIgbGFiLCBycGVycnk3NDU2QGdtYWlsLmNvbSkiCkVudmlyb25tZW50PSJXRUFUSEVSX1RBQkxFPWl0bW8tNDQ0LTU0NC1sYWIwNy13ZWF0aGVyLWxvb2t1cHMiCldvcmtpbmdEaXJlY3Rvcnk9L29wdC9hcHAKRXhlY1N0YXJ0PS91c3IvYmluL25vZGUgL29wdC9hcHAvYXBwLmpzClJlc3RhcnQ9YWx3YXlzClVzZXI9ZWMyLXVzZXIKCltJbnN0YWxsXQpXYW50ZWRCeT1tdWx0aS11c2VyLnRhcmdldApTRVJWSUNFCgpjaG93biAtUiBlYzItdXNlcjplYzItdXNlciAvb3B0L2FwcApzeXN0ZW1jdGwgZGFlbW9uLXJlbG9hZApzeXN0ZW1jdGwgZW5hYmxlIHdlYXRoZXIuc2VydmljZQpzeXN0ZW1jdGwgc3RhcnQgd2VhdGhlci5zZXJ2aWNlCg==" -> null
+      - vpc_security_group_ids               = [
+          - "sg-0b3fa609f1e21e658",
+        ] -> null
+        # (6 unchanged attributes hidden)
+
+      - iam_instance_profile {
+          - name = "itmo-444-544-lab07-weather-profile" -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - tag_specifications {
+          - resource_type = "instance" -> null
+          - tags          = {
+              - "Name" = "weather-app"
+            } -> null
+        }
+    }
+
+  # aws_lb.main will be destroyed
+  - resource "aws_lb" "main" {
+      - arn                                                          = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:loadbalancer/app/itmo-444-544-lab07-alb/e35de637238d6dec" -> null
+      - arn_suffix                                                   = "app/itmo-444-544-lab07-alb/e35de637238d6dec" -> null
+      - client_keep_alive                                            = 3600 -> null
+      - desync_mitigation_mode                                       = "defensive" -> null
+      - dns_name                                                     = "itmo-444-544-lab07-alb-226936146.us-east-2.elb.amazonaws.com" -> null
+      - drop_invalid_header_fields                                   = false -> null
+      - enable_cross_zone_load_balancing                             = true -> null
+      - enable_deletion_protection                                   = false -> null
+      - enable_http2                                                 = true -> null
+      - enable_tls_version_and_cipher_suite_headers                  = false -> null
+      - enable_waf_fail_open                                         = false -> null
+      - enable_xff_client_port                                       = false -> null
+      - enable_zonal_shift                                           = false -> null
+      - id                                                           = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:loadbalancer/app/itmo-444-544-lab07-alb/e35de637238d6dec" -> null
+      - idle_timeout                                                 = 60 -> null
+      - internal                                                     = false -> null
+      - ip_address_type                                              = "ipv4" -> null
+      - load_balancer_type                                           = "application" -> null
+      - name                                                         = "itmo-444-544-lab07-alb" -> null
+      - preserve_host_header                                         = false -> null
+      - security_groups                                              = [
+          - "sg-0378a4172e8189f66",
+        ] -> null
+      - subnets                                                      = [
+          - "subnet-0320b6b5a09b75e05",
+          - "subnet-0533971275c5e4149",
+          - "subnet-0d5a982658838e73b",
+        ] -> null
+      - tags                                                         = {} -> null
+      - tags_all                                                     = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - vpc_id                                                       = "vpc-0b65434ca3c6f48cb" -> null
+      - xff_header_processing_mode                                   = "append" -> null
+      - zone_id                                                      = "Z3AADJGX6KTTL2" -> null
+        # (3 unchanged attributes hidden)
+
+      - access_logs {
+          - enabled = false -> null
+            # (2 unchanged attributes hidden)
+        }
+
+      - connection_logs {
+          - enabled = false -> null
+            # (2 unchanged attributes hidden)
+        }
+
+      - subnet_mapping {
+          - subnet_id            = "subnet-0320b6b5a09b75e05" -> null
+            # (4 unchanged attributes hidden)
+        }
+      - subnet_mapping {
+          - subnet_id            = "subnet-0533971275c5e4149" -> null
+            # (4 unchanged attributes hidden)
+        }
+      - subnet_mapping {
+          - subnet_id            = "subnet-0d5a982658838e73b" -> null
+            # (4 unchanged attributes hidden)
+        }
+    }
+
+  # aws_lb_listener.tier["advisor"] will be destroyed
+  - resource "aws_lb_listener" "tier" {
+      - arn                                                                 = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:listener/app/itmo-444-544-lab07-alb/e35de637238d6dec/6fcb10f71ec245d7" -> null
+      - id                                                                  = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:listener/app/itmo-444-544-lab07-alb/e35de637238d6dec/6fcb10f71ec245d7" -> null
+      - load_balancer_arn                                                   = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:loadbalancer/app/itmo-444-544-lab07-alb/e35de637238d6dec" -> null
+      - port                                                                = 8081 -> null
+      - protocol                                                            = "HTTP" -> null
+      - routing_http_response_server_enabled                                = true -> null
+      - tags                                                                = {} -> null
+      - tags_all                                                            = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+        # (11 unchanged attributes hidden)
+
+      - default_action {
+          - order            = 1 -> null
+          - target_group_arn = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-advisor-tg/b66ecbd37513ab8c" -> null
+          - type             = "forward" -> null
+        }
+    }
+
+  # aws_lb_listener.tier["weather"] will be destroyed
+  - resource "aws_lb_listener" "tier" {
+      - arn                                                                 = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:listener/app/itmo-444-544-lab07-alb/e35de637238d6dec/0d4f9d3683ac8ba2" -> null
+      - id                                                                  = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:listener/app/itmo-444-544-lab07-alb/e35de637238d6dec/0d4f9d3683ac8ba2" -> null
+      - load_balancer_arn                                                   = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:loadbalancer/app/itmo-444-544-lab07-alb/e35de637238d6dec" -> null
+      - port                                                                = 8080 -> null
+      - protocol                                                            = "HTTP" -> null
+      - routing_http_response_server_enabled                                = true -> null
+      - tags                                                                = {} -> null
+      - tags_all                                                            = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+        # (11 unchanged attributes hidden)
+
+      - default_action {
+          - order            = 1 -> null
+          - target_group_arn = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-weather-tg/2a3381b12f7d9dc3" -> null
+          - type             = "forward" -> null
+        }
+    }
+
+  # aws_lb_target_group.tier["advisor"] will be destroyed
+  - resource "aws_lb_target_group" "tier" {
+      - arn                                = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-advisor-tg/b66ecbd37513ab8c" -> null
+      - arn_suffix                         = "targetgroup/itmo-444-544-lab07-advisor-tg/b66ecbd37513ab8c" -> null
+      - deregistration_delay               = "300" -> null
+      - id                                 = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-advisor-tg/b66ecbd37513ab8c" -> null
+      - ip_address_type                    = "ipv4" -> null
+      - lambda_multi_value_headers_enabled = false -> null
+      - load_balancer_arns                 = [
+          - "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:loadbalancer/app/itmo-444-544-lab07-alb/e35de637238d6dec",
+        ] -> null
+      - load_balancing_algorithm_type      = "round_robin" -> null
+      - load_balancing_anomaly_mitigation  = "off" -> null
+      - load_balancing_cross_zone_enabled  = "use_load_balancer_configuration" -> null
+      - name                               = "itmo-444-544-lab07-advisor-tg" -> null
+      - port                               = 3000 -> null
+      - protocol                           = "HTTP" -> null
+      - protocol_version                   = "HTTP1" -> null
+      - proxy_protocol_v2                  = false -> null
+      - slow_start                         = 0 -> null
+      - tags                               = {} -> null
+      - tags_all                           = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - target_type                        = "instance" -> null
+      - vpc_id                             = "vpc-0b65434ca3c6f48cb" -> null
+        # (1 unchanged attribute hidden)
+
+      - health_check {
+          - enabled             = true -> null
+          - healthy_threshold   = 2 -> null
+          - interval            = 10 -> null
+          - matcher             = "200" -> null
+          - path                = "/" -> null
+          - port                = "traffic-port" -> null
+          - protocol            = "HTTP" -> null
+          - timeout             = 5 -> null
+          - unhealthy_threshold = 2 -> null
+        }
+
+      - stickiness {
+          - cookie_duration = 86400 -> null
+          - enabled         = false -> null
+          - type            = "lb_cookie" -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - target_failover {}
+
+      - target_group_health {
+          - dns_failover {
+              - minimum_healthy_targets_count      = "1" -> null
+              - minimum_healthy_targets_percentage = "off" -> null
+            }
+          - unhealthy_state_routing {
+              - minimum_healthy_targets_count      = 1 -> null
+              - minimum_healthy_targets_percentage = "off" -> null
+            }
+        }
+
+      - target_health_state {}
+    }
+
+  # aws_lb_target_group.tier["weather"] will be destroyed
+  - resource "aws_lb_target_group" "tier" {
+      - arn                                = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-weather-tg/2a3381b12f7d9dc3" -> null
+      - arn_suffix                         = "targetgroup/itmo-444-544-lab07-weather-tg/2a3381b12f7d9dc3" -> null
+      - deregistration_delay               = "300" -> null
+      - id                                 = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-weather-tg/2a3381b12f7d9dc3" -> null
+      - ip_address_type                    = "ipv4" -> null
+      - lambda_multi_value_headers_enabled = false -> null
+      - load_balancer_arns                 = [
+          - "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:loadbalancer/app/itmo-444-544-lab07-alb/e35de637238d6dec",
+        ] -> null
+      - load_balancing_algorithm_type      = "round_robin" -> null
+      - load_balancing_anomaly_mitigation  = "off" -> null
+      - load_balancing_cross_zone_enabled  = "use_load_balancer_configuration" -> null
+      - name                               = "itmo-444-544-lab07-weather-tg" -> null
+      - port                               = 3000 -> null
+      - protocol                           = "HTTP" -> null
+      - protocol_version                   = "HTTP1" -> null
+      - proxy_protocol_v2                  = false -> null
+      - slow_start                         = 0 -> null
+      - tags                               = {} -> null
+      - tags_all                           = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - target_type                        = "instance" -> null
+      - vpc_id                             = "vpc-0b65434ca3c6f48cb" -> null
+        # (1 unchanged attribute hidden)
+
+      - health_check {
+          - enabled             = true -> null
+          - healthy_threshold   = 2 -> null
+          - interval            = 10 -> null
+          - matcher             = "200" -> null
+          - path                = "/" -> null
+          - port                = "traffic-port" -> null
+          - protocol            = "HTTP" -> null
+          - timeout             = 5 -> null
+          - unhealthy_threshold = 2 -> null
+        }
+
+      - stickiness {
+          - cookie_duration = 86400 -> null
+          - enabled         = false -> null
+          - type            = "lb_cookie" -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - target_failover {}
+
+      - target_group_health {
+          - dns_failover {
+              - minimum_healthy_targets_count      = "1" -> null
+              - minimum_healthy_targets_percentage = "off" -> null
+            }
+          - unhealthy_state_routing {
+              - minimum_healthy_targets_count      = 1 -> null
+              - minimum_healthy_targets_percentage = "off" -> null
+            }
+        }
+
+      - target_health_state {}
+    }
+
+  # aws_security_group.alb will be destroyed
+  - resource "aws_security_group" "alb" {
+      - arn                    = "arn:aws:ec2:us-east-2:[ACCOUNT_ID_REDACTED]:security-group/sg-0378a4172e8189f66" -> null
+      - description            = "The load balancer: open to the internet on the two listener ports" -> null
+      - egress                 = [
+          - {
+              - cidr_blocks      = []
+              - from_port        = 3000
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = [
+                  - "sg-0b3fa609f1e21e658",
+                ]
+              - self             = false
+              - to_port          = 3000
+                # (1 unchanged attribute hidden)
+            },
+        ] -> null
+      - id                     = "sg-0378a4172e8189f66" -> null
+      - ingress                = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - from_port        = 8080
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 8080
+                # (1 unchanged attribute hidden)
+            },
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - from_port        = 8081
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 8081
+                # (1 unchanged attribute hidden)
+            },
+        ] -> null
+      - name                   = "itmo-444-544-lab07-alb-sg" -> null
+      - owner_id               = "[ACCOUNT_ID_REDACTED]" -> null
+      - revoke_rules_on_delete = false -> null
+      - tags                   = {} -> null
+      - tags_all               = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - vpc_id                 = "vpc-0b65434ca3c6f48cb" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # aws_security_group.app will be destroyed
+  - resource "aws_security_group" "app" {
+      - arn                    = "arn:aws:ec2:us-east-2:[ACCOUNT_ID_REDACTED]:security-group/sg-0b3fa609f1e21e658" -> null
+      - description            = "The app instances: reachable only from the load balancer" -> null
+      - egress                 = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - from_port        = 0
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "-1"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ] -> null
+      - id                     = "sg-0b3fa609f1e21e658" -> null
+      - ingress                = [
+          - {
+              - cidr_blocks      = [
+                  - "99.129.116.86/32",
+                ]
+              - from_port        = 22
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 22
+                # (1 unchanged attribute hidden)
+            },
+          - {
+              - cidr_blocks      = []
+              - from_port        = 3000
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = [
+                  - "sg-0378a4172e8189f66",
+                ]
+              - self             = false
+              - to_port          = 3000
+                # (1 unchanged attribute hidden)
+            },
+        ] -> null
+      - name                   = "itmo-444-544-lab07-app-sg" -> null
+      - owner_id               = "[ACCOUNT_ID_REDACTED]" -> null
+      - revoke_rules_on_delete = false -> null
+      - tags                   = {} -> null
+      - tags_all               = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - vpc_id                 = "vpc-0b65434ca3c6f48cb" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # aws_ssm_parameter.gemini will be destroyed
+  - resource "aws_ssm_parameter" "gemini" {
+      - arn             = "arn:aws:ssm:us-east-2:[ACCOUNT_ID_REDACTED]:parameter/itmo-444-544-lab07/gemini-api-key" -> null
+      - data_type       = "text" -> null
+      - id              = "/itmo-444-544-lab07/gemini-api-key" -> null
+      - key_id          = "alias/aws/ssm" -> null
+      - name            = "/itmo-444-544-lab07/gemini-api-key" -> null
+      - tags            = {} -> null
+      - tags_all        = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - tier            = "Standard" -> null
+      - type            = "SecureString" -> null
+      - value           = (sensitive value) -> null
+      - value_wo        = (write-only attribute) -> null
+      - version         = 4 -> null
+        # (2 unchanged attributes hidden)
+    }
+
+  # aws_vpc_security_group_egress_rule.alb_to_app will be destroyed
+  - resource "aws_vpc_security_group_egress_rule" "alb_to_app" {
+      - arn                          = "arn:aws:ec2:us-east-2:[ACCOUNT_ID_REDACTED]:security-group-rule/sgr-0f8e732558657d75a" -> null
+      - from_port                    = 3000 -> null
+      - id                           = "sgr-0f8e732558657d75a" -> null
+      - ip_protocol                  = "tcp" -> null
+      - referenced_security_group_id = "sg-0b3fa609f1e21e658" -> null
+      - security_group_id            = "sg-0378a4172e8189f66" -> null
+      - security_group_rule_id       = "sgr-0f8e732558657d75a" -> null
+      - tags_all                     = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - to_port                      = 3000 -> null
+    }
+
+  # aws_vpc_security_group_egress_rule.app_out will be destroyed
+  - resource "aws_vpc_security_group_egress_rule" "app_out" {
+      - arn                    = "arn:aws:ec2:us-east-2:[ACCOUNT_ID_REDACTED]:security-group-rule/sgr-05519161b6d2223b6" -> null
+      - cidr_ipv4              = "0.0.0.0/0" -> null
+      - id                     = "sgr-05519161b6d2223b6" -> null
+      - ip_protocol            = "-1" -> null
+      - security_group_id      = "sg-0b3fa609f1e21e658" -> null
+      - security_group_rule_id = "sgr-05519161b6d2223b6" -> null
+      - tags_all               = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+    }
+
+  # aws_vpc_security_group_ingress_rule.alb_from_internet["advisor"] will be destroyed
+  - resource "aws_vpc_security_group_ingress_rule" "alb_from_internet" {
+      - arn                    = "arn:aws:ec2:us-east-2:[ACCOUNT_ID_REDACTED]:security-group-rule/sgr-055a1d9e016dc6a1f" -> null
+      - cidr_ipv4              = "0.0.0.0/0" -> null
+      - from_port              = 8081 -> null
+      - id                     = "sgr-055a1d9e016dc6a1f" -> null
+      - ip_protocol            = "tcp" -> null
+      - security_group_id      = "sg-0378a4172e8189f66" -> null
+      - security_group_rule_id = "sgr-055a1d9e016dc6a1f" -> null
+      - tags_all               = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - to_port                = 8081 -> null
+    }
+
+  # aws_vpc_security_group_ingress_rule.alb_from_internet["weather"] will be destroyed
+  - resource "aws_vpc_security_group_ingress_rule" "alb_from_internet" {
+      - arn                    = "arn:aws:ec2:us-east-2:[ACCOUNT_ID_REDACTED]:security-group-rule/sgr-0e2555dadb0a11d31" -> null
+      - cidr_ipv4              = "0.0.0.0/0" -> null
+      - from_port              = 8080 -> null
+      - id                     = "sgr-0e2555dadb0a11d31" -> null
+      - ip_protocol            = "tcp" -> null
+      - security_group_id      = "sg-0378a4172e8189f66" -> null
+      - security_group_rule_id = "sgr-0e2555dadb0a11d31" -> null
+      - tags_all               = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - to_port                = 8080 -> null
+    }
+
+  # aws_vpc_security_group_ingress_rule.app_from_alb will be destroyed
+  - resource "aws_vpc_security_group_ingress_rule" "app_from_alb" {
+      - arn                          = "arn:aws:ec2:us-east-2:[ACCOUNT_ID_REDACTED]:security-group-rule/sgr-015287c7a51a84e71" -> null
+      - from_port                    = 3000 -> null
+      - id                           = "sgr-015287c7a51a84e71" -> null
+      - ip_protocol                  = "tcp" -> null
+      - referenced_security_group_id = "sg-0378a4172e8189f66" -> null
+      - security_group_id            = "sg-0b3fa609f1e21e658" -> null
+      - security_group_rule_id       = "sgr-015287c7a51a84e71" -> null
+      - tags_all                     = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - to_port                      = 3000 -> null
+    }
+
+  # aws_vpc_security_group_ingress_rule.app_ssh[0] will be destroyed
+  - resource "aws_vpc_security_group_ingress_rule" "app_ssh" {
+      - arn                    = "arn:aws:ec2:us-east-2:[ACCOUNT_ID_REDACTED]:security-group-rule/sgr-055011e4e12fcdb39" -> null
+      - cidr_ipv4              = "99.129.116.86/32" -> null
+      - from_port              = 22 -> null
+      - id                     = "sgr-055011e4e12fcdb39" -> null
+      - ip_protocol            = "tcp" -> null
+      - security_group_id      = "sg-0b3fa609f1e21e658" -> null
+      - security_group_rule_id = "sgr-055011e4e12fcdb39" -> null
+      - tags_all               = {
+          - "Project" = "itmo-444-544-lab07"
+        } -> null
+      - to_port                = 22 -> null
+    }
+
+Plan: 0 to add, 0 to change, 25 to destroy.
+
+Changes to Outputs:
+  - advisor_url           = "http://itmo-444-544-lab07-alb-226936146.us-east-2.elb.amazonaws.com:8081" -> null
+  - alb_dns_name          = "itmo-444-544-lab07-alb-226936146.us-east-2.elb.amazonaws.com" -> null
+  - gemini_parameter_name = "/itmo-444-544-lab07/gemini-api-key" -> null
+  - weather_table_name    = "itmo-444-544-lab07-weather-lookups" -> null
+  - weather_url           = "http://itmo-444-544-lab07-alb-226936146.us-east-2.elb.amazonaws.com:8080" -> null
+
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.

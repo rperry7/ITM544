@@ -1,0 +1,11 @@
+﻿Detach AmazonDynamoDBFullAccess: 
+
+Exit code: 0
+
+Detach AmazonSSMFullAccess: 
+
+Exit code: 0
+
+Detach EC2InstanceConnect: 
+
+Exit code: 0

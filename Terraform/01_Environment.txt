@@ -1,0 +1,15 @@
+﻿Terraform v1.17.1
+on windows_amd64
++ provider registry.terraform.io/hashicorp/aws v5.100.0
+
+Your version of Terraform is out of date! The latest version
+is 1.17.2. You can update by downloading from https://developer.hashicorp.com/terraform/install
+
+
+AWS identity (account ID redacted): 
+{
+    "UserId": "AIDAZDZCY37GRQD23IMJV",
+    "Account": "[ACCOUNT_ID_REDACTED]",
+    "Arn": "arn:aws:iam::[ACCOUNT_ID_REDACTED]:user/rperry7"
+}
+Exit code: 0

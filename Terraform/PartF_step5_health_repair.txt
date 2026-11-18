@@ -1,0 +1,72 @@
+﻿data.aws_iam_policy_document.ec2_trust: Reading...
+data.aws_vpc.default: Reading...
+data.aws_ami.al2023: Reading...
+aws_ssm_parameter.gemini: Refreshing state... [id=/itmo-444-544-lab07/gemini-api-key]
+aws_dynamodb_table.weather: Refreshing state... [id=itmo-444-544-lab07-weather-lookups]
+data.aws_iam_policy_document.ec2_trust: Read complete after 0s [id=2851119427]
+aws_iam_role.tier["weather"]: Refreshing state... [id=itmo-444-544-lab07-weather-role]
+aws_iam_role.tier["advisor"]: Refreshing state... [id=itmo-444-544-lab07-advisor-role]
+data.aws_iam_policy_document.advisor: Reading...
+data.aws_iam_policy_document.advisor: Read complete after 0s [id=2752584255]
+aws_iam_role_policy.advisor: Refreshing state... [id=itmo-444-544-lab07-advisor-role:itmo-444-544-lab07-advisor-policy]
+aws_iam_instance_profile.tier["advisor"]: Refreshing state... [id=itmo-444-544-lab07-advisor-profile]
+aws_iam_instance_profile.tier["weather"]: Refreshing state... [id=itmo-444-544-lab07-weather-profile]
+data.aws_iam_policy_document.weather: Reading...
+data.aws_iam_policy_document.weather: Read complete after 0s [id=2057029901]
+aws_iam_role_policy.weather: Refreshing state... [id=itmo-444-544-lab07-weather-role:itmo-444-544-lab07-weather-policy]
+data.aws_ami.al2023: Read complete after 1s [id=ami-00a8036df57dec356]
+data.aws_vpc.default: Read complete after 1s [id=vpc-0b65434ca3c6f48cb]
+data.aws_subnets.default: Reading...
+aws_security_group.app: Refreshing state... [id=sg-0b3fa609f1e21e658]
+aws_security_group.alb: Refreshing state... [id=sg-0378a4172e8189f66]
+aws_lb_target_group.tier["advisor"]: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-advisor-tg/b66ecbd37513ab8c]
+aws_lb_target_group.tier["weather"]: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-weather-tg/2a3381b12f7d9dc3]
+data.aws_subnets.default: Read complete after 0s [id=us-east-2]
+aws_vpc_security_group_egress_rule.app_out: Refreshing state... [id=sgr-05519161b6d2223b6]
+aws_vpc_security_group_egress_rule.alb_to_app: Refreshing state... [id=sgr-0f8e732558657d75a]
+aws_vpc_security_group_ingress_rule.alb_from_internet["advisor"]: Refreshing state... [id=sgr-055a1d9e016dc6a1f]
+aws_vpc_security_group_ingress_rule.alb_from_internet["weather"]: Refreshing state... [id=sgr-0e2555dadb0a11d31]
+aws_vpc_security_group_ingress_rule.app_from_alb: Refreshing state... [id=sgr-015287c7a51a84e71]
+aws_vpc_security_group_ingress_rule.app_ssh[0]: Refreshing state... [id=sgr-055011e4e12fcdb39]
+aws_lb.main: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:loadbalancer/app/itmo-444-544-lab07-alb/e35de637238d6dec]
+aws_lb_listener.tier["advisor"]: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:listener/app/itmo-444-544-lab07-alb/e35de637238d6dec/f0e1802bb2ff6808]
+aws_lb_listener.tier["weather"]: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:listener/app/itmo-444-544-lab07-alb/e35de637238d6dec/0d4f9d3683ac8ba2]
+aws_launch_template.tier["advisor"]: Refreshing state... [id=lt-05ef6663c0da1e72a]
+aws_launch_template.tier["weather"]: Refreshing state... [id=lt-0e14d28f042b745a6]
+aws_autoscaling_group.tier["weather"]: Refreshing state... [id=itmo-444-544-lab07-weather-asg]
+aws_autoscaling_group.tier["advisor"]: Refreshing state... [id=itmo-444-544-lab07-advisor-asg]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_lb_target_group.tier["weather"] will be updated in-place
+  ~ resource "aws_lb_target_group" "tier" {
+        id                                 = "arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-weather-tg/2a3381b12f7d9dc3"
+        name                               = "itmo-444-544-lab07-weather-tg"
+        tags                               = {}
+        # (18 unchanged attributes hidden)
+
+      ~ health_check {
+          ~ path                = "/nope" -> "/"
+            # (8 unchanged attributes hidden)
+        }
+
+        # (4 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+aws_lb_target_group.tier["weather"]: Modifying... [id=arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-weather-tg/2a3381b12f7d9dc3]
+aws_lb_target_group.tier["weather"]: Modifications complete after 0s [id=arn:aws:elasticloadbalancing:us-east-2:[ACCOUNT_ID_REDACTED]:targetgroup/itmo-444-544-lab07-weather-tg/2a3381b12f7d9dc3]
+
+Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
+
+Outputs:
+
+advisor_url = "http://itmo-444-544-lab07-alb-226936146.us-east-2.elb.amazonaws.com:8081"
+alb_dns_name = "itmo-444-544-lab07-alb-226936146.us-east-2.elb.amazonaws.com"
+gemini_parameter_name = "/itmo-444-544-lab07/gemini-api-key"
+weather_table_name = "itmo-444-544-lab07-weather-lookups"
+weather_url = "http://itmo-444-544-lab07-alb-226936146.us-east-2.elb.amazonaws.com:8080"

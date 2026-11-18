@@ -1,0 +1,763 @@
+﻿data.aws_ami.al2023: Reading...
+data.aws_vpc.default: Reading...
+data.aws_iam_policy_document.ec2_trust: Reading...
+data.aws_iam_policy_document.ec2_trust: Read complete after 0s [id=2851119427]
+data.aws_vpc.default: Read complete after 1s [id=vpc-0b65434ca3c6f48cb]
+data.aws_ami.al2023: Read complete after 1s [id=ami-00a8036df57dec356]
+data.aws_subnets.default: Reading...
+data.aws_subnets.default: Read complete after 1s [id=us-east-2]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.advisor will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "advisor" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "ssm:GetParameter",
+            ]
+          + resources = [
+              + (known after apply),
+            ]
+        }
+    }
+
+  # data.aws_iam_policy_document.weather will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "weather" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "dynamodb:GetItem",
+              + "dynamodb:PutItem",
+              + "dynamodb:Scan",
+            ]
+          + resources = [
+              + (known after apply),
+            ]
+        }
+    }
+
+  # aws_autoscaling_group.tier["advisor"] will be created
+  + resource "aws_autoscaling_group" "tier" {
+      + arn                              = (known after apply)
+      + availability_zones               = (known after apply)
+      + default_cooldown                 = (known after apply)
+      + desired_capacity                 = 1
+      + force_delete                     = true
+      + force_delete_warm_pool           = false
+      + health_check_grace_period        = 120
+      + health_check_type                = "ELB"
+      + id                               = (known after apply)
+      + ignore_failed_scaling_activities = false
+      + load_balancers                   = (known after apply)
+      + max_size                         = 1
+      + metrics_granularity              = "1Minute"
+      + min_size                         = 1
+      + name                             = "itmo-444-544-lab07-advisor-asg"
+      + name_prefix                      = (known after apply)
+      + predicted_capacity               = (known after apply)
+      + protect_from_scale_in            = false
+      + service_linked_role_arn          = (known after apply)
+      + target_group_arns                = (known after apply)
+      + vpc_zone_identifier              = [
+          + "subnet-0320b6b5a09b75e05",
+          + "subnet-0533971275c5e4149",
+          + "subnet-0d5a982658838e73b",
+        ]
+      + wait_for_capacity_timeout        = "10m"
+      + warm_pool_size                   = (known after apply)
+
+      + availability_zone_distribution (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + instance_refresh {
+          + strategy = "Rolling"
+
+          + preferences {
+              + max_healthy_percentage       = 100
+              + min_healthy_percentage       = 0
+              + scale_in_protected_instances = "Ignore"
+              + skip_matching                = false
+              + standby_instances            = "Ignore"
+            }
+        }
+
+      + launch_template {
+          + id      = (known after apply)
+          + name    = (known after apply)
+          + version = (known after apply)
+        }
+
+      + mixed_instances_policy (known after apply)
+
+      + tag {
+          + key                 = "Name"
+          + propagate_at_launch = true
+          + value               = "advisor-app"
+        }
+
+      + traffic_source (known after apply)
+    }
+
+  # aws_autoscaling_group.tier["weather"] will be created
+  + resource "aws_autoscaling_group" "tier" {
+      + arn                              = (known after apply)
+      + availability_zones               = (known after apply)
+      + default_cooldown                 = (known after apply)
+      + desired_capacity                 = 1
+      + force_delete                     = true
+      + force_delete_warm_pool           = false
+      + health_check_grace_period        = 120
+      + health_check_type                = "ELB"
+      + id                               = (known after apply)
+      + ignore_failed_scaling_activities = false
+      + load_balancers                   = (known after apply)
+      + max_size                         = 1
+      + metrics_granularity              = "1Minute"
+      + min_size                         = 1
+      + name                             = "itmo-444-544-lab07-weather-asg"
+      + name_prefix                      = (known after apply)
+      + predicted_capacity               = (known after apply)
+      + protect_from_scale_in            = false
+      + service_linked_role_arn          = (known after apply)
+      + target_group_arns                = (known after apply)
+      + vpc_zone_identifier              = [
+          + "subnet-0320b6b5a09b75e05",
+          + "subnet-0533971275c5e4149",
+          + "subnet-0d5a982658838e73b",
+        ]
+      + wait_for_capacity_timeout        = "10m"
+      + warm_pool_size                   = (known after apply)
+
+      + availability_zone_distribution (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + instance_refresh {
+          + strategy = "Rolling"
+
+          + preferences {
+              + max_healthy_percentage       = 100
+              + min_healthy_percentage       = 0
+              + scale_in_protected_instances = "Ignore"
+              + skip_matching                = false
+              + standby_instances            = "Ignore"
+            }
+        }
+
+      + launch_template {
+          + id      = (known after apply)
+          + name    = (known after apply)
+          + version = (known after apply)
+        }
+
+      + mixed_instances_policy (known after apply)
+
+      + tag {
+          + key                 = "Name"
+          + propagate_at_launch = true
+          + value               = "weather-app"
+        }
+
+      + traffic_source (known after apply)
+    }
+
+  # aws_dynamodb_table.weather will be created
+  + resource "aws_dynamodb_table" "weather" {
+      + arn              = (known after apply)
+      + billing_mode     = "PAY_PER_REQUEST"
+      + hash_key         = "zip"
+      + id               = (known after apply)
+      + name             = "itmo-444-544-lab07-weather-lookups"
+      + read_capacity    = (known after apply)
+      + stream_arn       = (known after apply)
+      + stream_label     = (known after apply)
+      + stream_view_type = (known after apply)
+      + tags_all         = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + write_capacity   = (known after apply)
+
+      + attribute {
+          + name = "zip"
+          + type = "S"
+        }
+
+      + point_in_time_recovery {
+          + enabled                 = false
+          + recovery_period_in_days = (known after apply)
+        }
+
+      + server_side_encryption (known after apply)
+
+      + ttl {
+          + attribute_name = "expiresAt"
+          + enabled        = true
+        }
+    }
+
+  # aws_iam_instance_profile.tier["advisor"] will be created
+  + resource "aws_iam_instance_profile" "tier" {
+      + arn         = (known after apply)
+      + create_date = (known after apply)
+      + id          = (known after apply)
+      + name        = "itmo-444-544-lab07-advisor-profile"
+      + name_prefix = (known after apply)
+      + path        = "/"
+      + role        = "itmo-444-544-lab07-advisor-role"
+      + tags_all    = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + unique_id   = (known after apply)
+    }
+
+  # aws_iam_instance_profile.tier["weather"] will be created
+  + resource "aws_iam_instance_profile" "tier" {
+      + arn         = (known after apply)
+      + create_date = (known after apply)
+      + id          = (known after apply)
+      + name        = "itmo-444-544-lab07-weather-profile"
+      + name_prefix = (known after apply)
+      + path        = "/"
+      + role        = "itmo-444-544-lab07-weather-role"
+      + tags_all    = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + unique_id   = (known after apply)
+    }
+
+  # aws_iam_role.tier["advisor"] will be created
+  + resource "aws_iam_role" "tier" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "itmo-444-544-lab07-advisor-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.tier["weather"] will be created
+  + resource "aws_iam_role" "tier" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "itmo-444-544-lab07-weather-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy.advisor will be created
+  + resource "aws_iam_role_policy" "advisor" {
+      + id          = (known after apply)
+      + name        = "itmo-444-544-lab07-advisor-policy"
+      + name_prefix = (known after apply)
+      + policy      = (known after apply)
+      + role        = (known after apply)
+    }
+
+  # aws_iam_role_policy.weather will be created
+  + resource "aws_iam_role_policy" "weather" {
+      + id          = (known after apply)
+      + name        = "itmo-444-544-lab07-weather-policy"
+      + name_prefix = (known after apply)
+      + policy      = (known after apply)
+      + role        = (known after apply)
+    }
+
+  # aws_launch_template.tier["advisor"] will be created
+  + resource "aws_launch_template" "tier" {
+      + arn                    = (known after apply)
+      + default_version        = (known after apply)
+      + id                     = (known after apply)
+      + image_id               = "ami-00a8036df57dec356"
+      + instance_type          = "t3.micro"
+      + key_name               = "ITMO-444-544-lab-keypair"
+      + latest_version         = (known after apply)
+      + name                   = "itmo-444-544-lab07-advisor-lt"
+      + name_prefix            = (known after apply)
+      + tags_all               = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + update_default_version = true
+      + user_data              = (known after apply)
+      + vpc_security_group_ids = (known after apply)
+
+      + iam_instance_profile {
+          + name = "itmo-444-544-lab07-advisor-profile"
+        }
+
+      + metadata_options (known after apply)
+
+      + tag_specifications {
+          + resource_type = "instance"
+          + tags          = {
+              + "Name" = "advisor-app"
+            }
+        }
+    }
+
+  # aws_launch_template.tier["weather"] will be created
+  + resource "aws_launch_template" "tier" {
+      + arn                    = (known after apply)
+      + default_version        = (known after apply)
+      + id                     = (known after apply)
+      + image_id               = "ami-00a8036df57dec356"
+      + instance_type          = "t3.micro"
+      + key_name               = "ITMO-444-544-lab-keypair"
+      + latest_version         = (known after apply)
+      + name                   = "itmo-444-544-lab07-weather-lt"
+      + name_prefix            = (known after apply)
+      + tags_all               = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + update_default_version = true
+      + user_data              = "IyEvYmluL2Jhc2gKZG5mIHVwZGF0ZSAteQpkbmYgaW5zdGFsbCAteSBub2RlanMKbWtkaXIgLXAgL29wdC9hcHAKZWNobyAiWTI5dWMzUWdaWGh3Y21WemN5QTlJSEpsY1hWcGNtVW9KMlY0Y0hKbGMzTW5LVHNLWTI5dWMzUWdleUJFZVc1aGJXOUVRa05zYVdWdWRDQjlJRDBnY21WeGRXbHlaU2duUUdGM2N5MXpaR3N2WTJ4cFpXNTBMV1I1Ym1GdGIyUmlKeWs3Q21OdmJuTjBJSHNnUkhsdVlXMXZSRUpFYjJOMWJXVnVkRU5zYVdWdWRDd2dSMlYwUTI5dGJXRnVaQ3dnVUhWMFEyOXRiV0Z1WkN3Z1UyTmhia052YlcxaGJtUWdmU0E5SUhKbGNYVnBjbVVvSjBCaGQzTXRjMlJyTDJ4cFlpMWtlVzVoYlc5a1lpY3BPd29LWTI5dWMzUWdZWEJ3SUQwZ1pYaHdjbVZ6Y3lncE93cGpiMjV6ZENCUVQxSlVJRDBnY0hKdlkyVnpjeTVsYm5ZdVVFOVNWQ0I4ZkNBek1EQXdPd3BqYjI1emRDQmFTVkJmUVZCSklEMGdjSEp2WTJWemN5NWxibll1V2tsUVgwRlFTVjlDUVZORklIeDhJQ2RvZEhSd2N6b3ZMMkZ3YVM1NmFYQndiM0J2ZEdGdExuVnpKenNLWTI5dWMzUWdUbGRUWDBGUVNTQTlJSEJ5YjJObGMzTXVaVzUyTGs1WFUxOUJVRWxmUWtGVFJTQjhmQ0FuYUhSMGNITTZMeTloY0drdWQyVmhkR2hsY2k1bmIzWW5Pd292THlCVWFHVWdUbUYwYVc5dVlXd2dWMlZoZEdobGNpQlRaWEoyYVdObElHRnphM01nWlhabGNua2dZMnhwWlc1MElIUnZJR2xrWlc1MGFXWjVJR2wwYzJWc1ppNEtZMjl1YzNRZ1ZWTkZVbDlCUjBWT1ZDQTlJSEJ5YjJObGMzTXVaVzUyTGs1WFUxOVZVMFZTWDBGSFJVNVVJSHg4SUNjb2FYUnRieTAwTkRRdE5UUTBJSGRsWVhSb1pYSWdiR0ZpTENCemRIVmtaVzUwUUdWNFlXMXdiR1V1WTI5dEtTYzdDZ292THlCWGFYUm9JRzV2SUZkRlFWUklSVkpmVkVGQ1RFVWdkR2hsSUhObGNuWnBZMlVnYzNScGJHd2dkMjl5YTNNc0lHbDBJR3AxYzNRZ1pHOWxjeUJ1YjNRZ2MzUnZjbVVnWVc1NWRHaHBibWN1Q21OdmJuTjBJRlJCUWt4RklEMGdjSEp2WTJWemN5NWxibll1VjBWQlZFaEZVbDlVUVVKTVJUc0tZMjl1YzNRZ1EwRkRTRVZmVTBWRFQwNUVVeUE5SUU1MWJXSmxjaWh3Y205alpYTnpMbVZ1ZGk1RFFVTklSVjlUUlVOUFRrUlRJSHg4SURZd01DazdDbU52Ym5OMElFdEZSVkJmVTBWRFQwNUVVeUE5SURnMk5EQXdPeUF2THlCRWVXNWhiVzlFUWlCa1pXeGxkR1Z6SUhOaGRtVmtJR3h2YjJ0MWNITWdZV0p2ZFhRZ1lTQmtZWGtnWVdaMFpYSWdkR2hsZVNCM1pYSmxJRzFoWkdVS1kyOXVjM1FnUkVKZlVrVlVVbGxmVFZNZ1BTQXpNREF3TURzZ0x5OGdZV1owWlhJZ1lTQmtZWFJoWW1GelpTQm1ZV2xzZFhKbExDQnNaV0YyWlNCMGFHVWdaR0YwWVdKaGMyVWdZV3h2Ym1VZ1ptOXlJRE13SUhObFkyOXVaSE1LQ2k4dklFUlpUa0ZOVDBSQ1gwVk9SRkJQU1U1VUlHbHpJR1p2Y2lCc2IyTmhiQ0IwWlhOMGFXNW5JRzl1YkhrdUlFOXVJRVZETWlCMGFHVWdVMFJMSUdacGJtUnpJSFJvWlNCeVpXZHBiMjRnWVc1a0lIUm9aU0J5YjJ4bElHbDBjMlZzWmk0S1kyOXVjM1FnWkdSaUlEMGdSSGx1WVcxdlJFSkViMk4xYldWdWRFTnNhV1Z1ZEM1bWNtOXRLRzVsZHlCRWVXNWhiVzlFUWtOc2FXVnVkQ2g3Q2lBZ2NtVm5hVzl1T2lCd2NtOWpaWE56TG1WdWRpNUJWMU5mVWtWSFNVOU9MQW9nSUM0dUxpaHdjbTlqWlhOekxtVnVkaTVFV1U1QlRVOUVRbDlGVGtSUVQwbE9WQ0EvSUhzZ1pXNWtjRzlwYm5RNklIQnliMk5sYzNNdVpXNTJMa1JaVGtGTlQwUkNYMFZPUkZCUFNVNVVJSDBnT2lCN2ZTa3NDaUFnYldGNFFYUjBaVzF3ZEhNNklESXNDbjBwS1RzS0NtTnZibk4wSUd4dlp5QTlJQ2hsZG1WdWRDd2dabWxsYkdSeklEMGdlMzBwSUQwK0NpQWdZMjl1YzI5c1pTNXNiMmNvU2xOUFRpNXpkSEpwYm1kcFpua29leUIwY3pvZ2JtVjNJRVJoZEdVb0tTNTBiMGxUVDFOMGNtbHVaeWdwTENCbGRtVnVkQ3dnTGk0dVptbGxiR1J6SUgwcEtUc0tDbU5zWVhOeklGVndjM1J5WldGdFJYSnliM0lnWlhoMFpXNWtjeUJGY25KdmNpQjdDaUFnWTI5dWMzUnlkV04wYjNJb2MzUmhaMlVzSUhOMFlYUjFjeWtnZXdvZ0lDQWdjM1Z3WlhJb1lDUjdjM1JoWjJWOUlHWmhhV3hsWkdBcE93b2dJQ0FnZEdocGN5NXpkR0ZuWlNBOUlITjBZV2RsT3dvZ0lDQWdkR2hwY3k1emRHRjBkWE1nUFNCemRHRjBkWE03Q2lBZ2ZRcDlDZ292THlCR1pYUmphQ0JLVTA5T0lIZHBkR2dnWVNCMGFXMWxiM1YwSUdGdVpDQnZibVVnY21WMGNua3VJRkpsZEhWeWJuTWdiblZzYkNCdmJpQmhJRFF3TkN3Z2RHaHliM2R6SUZWd2MzUnlaV0Z0UlhKeWIzSWdiM1JvWlhKM2FYTmxMZ3BoYzNsdVl5Qm1kVzVqZEdsdmJpQm1aWFJqYUVwemIyNG9jM1JoWjJVc0lIVnliQ3dnYUdWaFpHVnljeUE5SUh0OUtTQjdDaUFnYkdWMElITjBZWFIxY3lBOUlEQTdDaUFnWm05eUlDaHNaWFFnWVhSMFpXMXdkQ0E5SURFN0lHRjBkR1Z0Y0hRZ1BEMGdNanNnWVhSMFpXMXdkQ3NyS1NCN0NpQWdJQ0IwY25rZ2V3b2dJQ0FnSUNCamIyNXpkQ0J5WlhNZ1BTQmhkMkZwZENCbVpYUmphQ2gxY213c0lIc2dhR1ZoWkdWeWN5d2djMmxuYm1Gc09pQkJZbTl5ZEZOcFoyNWhiQzUwYVcxbGIzVjBLRGd3TURBcElIMHBPd29nSUNBZ0lDQnpkR0YwZFhNZ1BTQnlaWE11YzNSaGRIVnpPd29nSUNBZ0lDQnBaaUFvY21WekxtOXJLU0J5WlhSMWNtNGdZWGRoYVhRZ2NtVnpMbXB6YjI0b0tUc0tJQ0FnSUNBZ2FXWWdLSEpsY3k1emRHRjBkWE1nUFQwOUlEUXdOQ2tnY21WMGRYSnVJRzUxYkd3N0NpQWdJQ0FnSUdsbUlDaHlaWE11YzNSaGRIVnpJRHdnTlRBd0lDWW1JSEpsY3k1emRHRjBkWE1nSVQwOUlEUXlPU2tnWW5KbFlXczdJQzh2SUdFZ1kyeHBaVzUwSUdWeWNtOXlJSGRwYkd3Z2JtOTBJR1pwZUNCcGRITmxiR1lLSUNBZ0lIMGdZMkYwWTJnZ0tHVnljaWtnZXdvZ0lDQWdJQ0J6ZEdGMGRYTWdQU0F3T3lBdkx5QjBhVzFsYjNWMElHOXlJRzVsZEhkdmNtc2dabUZwYkhWeVpRb2dJQ0FnZlFvZ0lDQWdhV1lnS0dGMGRHVnRjSFFnUENBeUtTQmhkMkZwZENCdVpYY2dVSEp2YldselpTZ29jbVZ6YjJ4MlpTa2dQVDRnYzJWMFZHbHRaVzkxZENoeVpYTnZiSFpsTENBMU1EQXBLVHNLSUNCOUNpQWdkR2h5YjNjZ2JtVjNJRlZ3YzNSeVpXRnRSWEp5YjNJb2MzUmhaMlVzSUhOMFlYUjFjeWs3Q24wS0NpOHZJQzB0TFMwZ1JHRjBZV0poYzJVZ2FHVnNjR1Z5Y3lBdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMEtiR1YwSUdSaVVtVjBjbmxCZENBOUlEQTdDZ292THlCU2RXNGdiMjVsSUdSaGRHRmlZWE5sSUdOaGJHd3VJRUZ1ZVNCbVlXbHNkWEpsSUdseklHeHZaMmRsWkN3Z1lXNWtJSFJvWlNCa1lYUmhZbUZ6WlNCcGN5QnphMmx3Y0dWa0lHWnZjaUJoSUhOb2IzSjBJSFJwYldVc0NpOHZJSE52SUdFZ1luSnZhMlZ1SUdSaGRHRmlZWE5sSUdOdmMzUnpJR1ZoWTJnZ2NtVnhkV1Z6ZENCdWIzUm9hVzVuSUdsdWMzUmxZV1FnYjJZZ1lTQjNZV2wwTGdwaGMzbHVZeUJtZFc1amRHbHZiaUIzYVhSb1JHSW9jM1JoWjJVc0lHWnVLU0I3Q2lBZ2FXWWdLQ0ZVUVVKTVJTa2djbVYwZFhKdUlIc2djM1JoZEdVNklDZGthWE5oWW14bFpDY2dmVHNLSUNCcFppQW9SR0YwWlM1dWIzY29LU0E4SUdSaVVtVjBjbmxCZENrZ2NtVjBkWEp1SUhzZ2MzUmhkR1U2SUNkMWJtRjJZV2xzWVdKc1pTY2dmVHNLSUNCMGNua2dld29nSUNBZ2NtVjBkWEp1SUhzZ2MzUmhkR1U2SUNkdmF5Y3NJSFpoYkhWbE9pQmhkMkZwZENCbWJpZ3BJSDA3Q2lBZ2ZTQmpZWFJqYUNBb1pYSnlLU0I3Q2lBZ0lDQmtZbEpsZEhKNVFYUWdQU0JFWVhSbExtNXZkeWdwSUNzZ1JFSmZVa1ZVVWxsZlRWTTdDaUFnSUNCc2IyY29KMlJpWDJWeWNtOXlKeXdnZXlCemRHRm5aU3dnYldWemMyRm5aVG9nWlhKeUxtNWhiV1VnS3lBbk9pQW5JQ3NnWlhKeUxtMWxjM05oWjJVZ2ZTazdDaUFnSUNCeVpYUjFjbTRnZXlCemRHRjBaVG9nSjNWdVlYWmhhV3hoWW14bEp5QjlPd29nSUgwS2ZRb0tMeThnVDI1bElHbDBaVzBnY0dWeUlIcHBjQ0JqYjJSbE9pQjBhR1VnYm1WM1pYTjBJR3h2YjJ0MWNDNGdVbVZoWkdsdVp5QnBkQ0JwY3lCMGFHVWdZMkZqYUdVZ1kyaGxZMnN1Q21OdmJuTjBJR1pwYm1SR2NtVnphQ0E5SUNoNmFYQXBJRDArSUhkcGRHaEVZaWduY21WaFpDY3NJR0Z6ZVc1aklDZ3BJRDArSUhzS0lDQmpiMjV6ZENCeUlEMGdZWGRoYVhRZ1pHUmlMbk5sYm1Rb2JtVjNJRWRsZEVOdmJXMWhibVFvZXlCVVlXSnNaVTVoYldVNklGUkJRa3hGTENCTFpYazZJSHNnZW1sd0lIMGdmU2twT3dvZ0lHTnZibk4wSUdsMFpXMGdQU0J5TGtsMFpXMDdDaUFnYVdZZ0tHbDBaVzBnSmlZZ1JHRjBaUzV1YjNjb0tTQXZJREV3TURBZ0xTQnBkR1Z0TG1OeVpXRjBaV1JCZENBOElFTkJRMGhGWDFORlEwOU9SRk1wSUhKbGRIVnliaUJwZEdWdExuQmhlV3h2WVdRN0NpQWdjbVYwZFhKdUlHNTFiR3c3Q24wcE93b0tZMjl1YzNRZ2MyRjJaVXh2YjJ0MWNDQTlJQ2g2YVhBc0lIQmhlV3h2WVdRcElEMCtJSGRwZEdoRVlpZ25kM0pwZEdVbkxDQW9LU0E5UGlCN0NpQWdZMjl1YzNRZ2JtOTNJRDBnVFdGMGFDNW1iRzl2Y2loRVlYUmxMbTV2ZHlncElDOGdNVEF3TUNrN0NpQWdjbVYwZFhKdUlHUmtZaTV6Wlc1a0tHNWxkeUJRZFhSRGIyMXRZVzVrS0hzS0lDQWdJRlJoWW14bFRtRnRaVG9nVkVGQ1RFVXNDaUFnSUNCSmRHVnRPaUI3SUhwcGNDd2djR0Y1Ykc5aFpDd2dZM0psWVhSbFpFRjBPaUJ1YjNjc0lHVjRjR2x5WlhOQmREb2dibTkzSUNzZ1MwVkZVRjlUUlVOUFRrUlRJSDBzQ2lBZ2ZTa3BPd3A5S1RzS0NpOHZJQzB0TFMwZ1VtOTFkR1Z6SUMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMHRMUzB0TFMwdExTMEtZWEJ3TG1kbGRDZ25MeWNzSUNoeVpYRXNJSEpsY3lrZ1BUNGdld29nSUhKbGN5NXFjMjl1S0hzZ2MyVnlkbWxqWlRvZ0ozZGxZWFJvWlhJbkxDQjFjMkZuWlRvZ0p5OTNaV0YwYUdWeVAzcHBjRDAyTURZeE5pY3NJR2hwYzNSdmNuazZJQ2N2YUdsemRHOXllU2NnZlNrN0NuMHBPd29LTHk4Z1ZHaGxJSFJsYmlCdGIzTjBJSEpsWTJWdWRDQnNiMjlyZFhCekxpQlVhR1VnZEdGaWJHVWdhWE1nZEdsdWVTd2djMjhnWVNCVFkyRnVJR0Z1WkNCaElITnZjblFnYVhNZ1ptbHVaU0JtYjNJZ2RHaHBjeUJzWVdJdUNtRndjQzVuWlhRb0p5OW9hWE4wYjNKNUp5d2dZWE41Ym1NZ0tISmxjU3dnY21WektTQTlQaUI3Q2lBZ1kyOXVjM1FnY21WemRXeDBJRDBnWVhkaGFYUWdkMmwwYUVSaUtDZG9hWE4wYjNKNUp5d2dZWE41Ym1NZ0tDa2dQVDRnZXdvZ0lDQWdZMjl1YzNRZ2FYUmxiWE1nUFNCYlhUc0tJQ0FnSUd4bGRDQnJaWGs3Q2lBZ0lDQmtieUI3Q2lBZ0lDQWdJR052Ym5OMElISWdQU0JoZDJGcGRDQmtaR0l1YzJWdVpDaHVaWGNnVTJOaGJrTnZiVzFoYm1Rb2V5QlVZV0pzWlU1aGJXVTZJRlJCUWt4RkxDQkZlR05zZFhOcGRtVlRkR0Z5ZEV0bGVUb2dhMlY1TENCTWFXMXBkRG9nTVRBd0lIMHBLVHNLSUNBZ0lDQWdhWFJsYlhNdWNIVnphQ2d1TGk1eUxrbDBaVzF6S1RzS0lDQWdJQ0FnYTJWNUlEMGdjaTVNWVhOMFJYWmhiSFZoZEdWa1MyVjVPd29nSUNBZ2ZTQjNhR2xzWlNBb2EyVjVJQ1ltSUdsMFpXMXpMbXhsYm1kMGFDQThJRFV3TUNrN0NpQWdJQ0J5WlhSMWNtNGdhWFJsYlhNS0lDQWdJQ0FnTG5OdmNuUW9LR0VzSUdJcElEMCtJR0l1WTNKbFlYUmxaRUYwSUMwZ1lTNWpjbVZoZEdWa1FYUXBDaUFnSUNBZ0lDNXpiR2xqWlNnd0xDQXhNQ2tLSUNBZ0lDQWdMbTFoY0Nnb2FTa2dQVDRnS0hzS0lDQWdJQ0FnSUNCNmFYQTZJR2t1ZW1sd0xBb2dJQ0FnSUNBZ0lHTnBkSGs2SUdrdWNHRjViRzloWkM1amFYUjVMQW9nSUNBZ0lDQWdJSE4wWVhSbE9pQnBMbkJoZVd4dllXUXVjM1JoZEdVc0NpQWdJQ0FnSUNBZ2MyaHZjblJmWm05eVpXTmhjM1E2SUdrdWNHRjViRzloWkM1bWIzSmxZMkZ6ZEM1emFHOXlkRVp2Y21WallYTjBMQW9nSUNBZ0lDQWdJSFJsYlhCbGNtRjBkWEpsT2lCcExuQmhlV3h2WVdRdVptOXlaV05oYzNRdWRHVnRjR1Z5WVhSMWNtVXNDaUFnSUNBZ0lDQWdZM0psWVhSbFpGOWhkRG9nYm1WM0lFUmhkR1VvYVM1amNtVmhkR1ZrUVhRZ0tpQXhNREF3S1M1MGIwbFRUMU4wY21sdVp5Z3BMQW9nSUNBZ0lDQjlLU2s3Q2lBZ2ZTazdDaUFnYVdZZ0tISmxjM1ZzZEM1emRHRjBaU0E5UFQwZ0oyUnBjMkZpYkdWa0p5a2djbVYwZFhKdUlISmxjeTV6ZEdGMGRYTW9OVEF6S1M1cWMyOXVLSHNnWlhKeWIzSTZJQ2RrWVhSaFltRnpaVjlrYVhOaFlteGxaQ2NnZlNrN0NpQWdhV1lnS0hKbGMzVnNkQzV6ZEdGMFpTQTlQVDBnSjNWdVlYWmhhV3hoWW14bEp5a2djbVYwZFhKdUlISmxjeTV6ZEdGMGRYTW9OVEF6S1M1cWMyOXVLSHNnWlhKeWIzSTZJQ2RrWVhSaFltRnpaVjkxYm1GMllXbHNZV0pzWlNjZ2ZTazdDaUFnY21WMGRYSnVJSEpsY3k1cWMyOXVLSHNnWTI5MWJuUTZJSEpsYzNWc2RDNTJZV3gxWlM1c1pXNW5kR2dzSUd4dmIydDFjSE02SUhKbGMzVnNkQzUyWVd4MVpTQjlLVHNLZlNrN0NncGhjSEF1WjJWMEtDY3ZkMlZoZEdobGNpY3NJR0Z6ZVc1aklDaHlaWEVzSUhKbGN5a2dQVDRnZXdvZ0lHTnZibk4wSUhwcGNDQTlJRk4wY21sdVp5aHlaWEV1Y1hWbGNua3VlbWx3SUh4OElDY25LVHNLSUNCcFppQW9JUzllWEdSN05YMGtMeTUwWlhOMEtIcHBjQ2twSUhzS0lDQWdJR3h2WnlnbmQyVmhkR2hsY2w5eVpXcGxZM1JsWkNjc0lIc2djbVZoYzI5dU9pQW5hVzUyWVd4cFpGOTZhWEFuSUgwcE93b2dJQ0FnY21WMGRYSnVJSEpsY3k1emRHRjBkWE1vTkRBd0tTNXFjMjl1S0hzZ1pYSnliM0k2SUNkcGJuWmhiR2xrWDNwcGNDY3NJRzFsYzNOaFoyVTZJQ2RIYVhabElHRWdOU0JrYVdkcGRDQlZVeUI2YVhBZ1kyOWtaUzRuSUgwcE93b2dJSDBLQ2lBZ1kyOXVjM1FnYzNSaGNuUmxaQ0E5SUVSaGRHVXVibTkzS0NrN0NpQWdiRzluS0NkM1pXRjBhR1Z5WDNKbGNYVmxjM1FuTENCN0lIcHBjQ0I5S1RzS0NpQWdMeThnTUM0Z1NHRnpJR0Z1ZVc5dVpTQmhjMnRsWkNCbWIzSWdkR2hwY3lCNmFYQWdhVzRnZEdobElHeGhjM1FnWm1WM0lHMXBiblYwWlhNL0lGUm9aVzRnWVc1emQyVnlJR1p5YjIwZ1JIbHVZVzF2UkVJdUNpQWdZMjl1YzNRZ1kyRmphR1ZrSUQwZ1lYZGhhWFFnWm1sdVpFWnlaWE5vS0hwcGNDazdDaUFnYVdZZ0tHTmhZMmhsWkM1emRHRjBaU0E5UFQwZ0oyOXJKeUFtSmlCallXTm9aV1F1ZG1Gc2RXVXBJSHNLSUNBZ0lHeHZaeWduZDJWaGRHaGxjbDl6ZFdOalpYTnpKeXdnZXlCNmFYQXNJR05oWTJobE9pQW5hR2wwSnl3Z2JYTTZJRVJoZEdVdWJtOTNLQ2tnTFNCemRHRnlkR1ZrSUgwcE93b2dJQ0FnY21WMGRYSnVJSEpsY3k1cWMyOXVLSHNnTGk0dVkyRmphR1ZrTG5aaGJIVmxMQ0JqWVdOb1pUb2dKMmhwZENjZ2ZTazdDaUFnZlFvS0lDQjBjbmtnZXdvZ0lDQWdMeThnTVM0Z1ZHaGxJSGRsWVhSb1pYSWdRVkJKSUhkaGJuUnpJR052YjNKa2FXNWhkR1Z6TENCdWIzUWdlbWx3SUdOdlpHVnpMQ0J6YnlCc2IyOXJJSFJvWlNCNmFYQWdZMjlrWlNCMWNDQm1hWEp6ZEM0S0lDQWdJR052Ym5OMElHeHZiMnQxY0NBOUlHRjNZV2wwSUdabGRHTm9Tbk52YmlnbmVtbHdYMnh2YjJ0MWNDY3NJR0FrZTFwSlVGOUJVRWw5TDNWekx5UjdlbWx3ZldBcE93b2dJQ0FnYVdZZ0tDRnNiMjlyZFhBZ2ZId2dJV3h2YjJ0MWNDNXdiR0ZqWlhNZ2ZId2diRzl2YTNWd0xuQnNZV05sY3k1c1pXNW5kR2dnUFQwOUlEQXBJSHNLSUNBZ0lDQWdiRzluS0NkM1pXRjBhR1Z5WDNKbGFtVmpkR1ZrSnl3Z2V5QnlaV0Z6YjI0NklDZDZhWEJmYm05MFgyWnZkVzVrSnl3Z2VtbHdJSDBwT3dvZ0lDQWdJQ0J5WlhSMWNtNGdjbVZ6TG5OMFlYUjFjeWcwTURRcExtcHpiMjRvZXlCbGNuSnZjam9nSjNwcGNGOXViM1JmWm05MWJtUW5JSDBwT3dvZ0lDQWdmUW9nSUNBZ1kyOXVjM1FnY0d4aFkyVWdQU0JzYjI5cmRYQXVjR3hoWTJWeld6QmRPd29nSUNBZ1kyOXVjM1FnYkdGMElEMGdUblZ0WW1WeUtIQnNZV05sTG14aGRHbDBkV1JsS1M1MGIwWnBlR1ZrS0RRcE93b2dJQ0FnWTI5dWMzUWdiRzl1SUQwZ1RuVnRZbVZ5S0hCc1lXTmxMbXh2Ym1kcGRIVmtaU2t1ZEc5R2FYaGxaQ2cwS1RzS0NpQWdJQ0F2THlBeUxpQkJjMnNnVGxkVElIZG9hV05vSUdadmNtVmpZWE4wSUdkeWFXUWdZMjkyWlhKeklIUm9iM05sSUdOdmIzSmthVzVoZEdWekxnb2dJQ0FnWTI5dWMzUWdhR1ZoWkdWeWN5QTlJSHNnSjFWelpYSXRRV2RsYm5Rbk9pQlZVMFZTWDBGSFJVNVVMQ0JCWTJObGNIUTZJQ2RoY0hCc2FXTmhkR2x2Ymk5blpXOHJhbk52YmljZ2ZUc0tJQ0FnSUdOdmJuTjBJSEJ2YVc1MElEMGdZWGRoYVhRZ1ptVjBZMmhLYzI5dUtDZHVkM05mY0c5cGJuUnpKeXdnWUNSN1RsZFRYMEZRU1gwdmNHOXBiblJ6THlSN2JHRjBmU3drZTJ4dmJuMWdMQ0JvWldGa1pYSnpLVHNLSUNBZ0lHbG1JQ2doY0c5cGJuUXBJSHNLSUNBZ0lDQWdiRzluS0NkM1pXRjBhR1Z5WDNKbGFtVmpkR1ZrSnl3Z2V5QnlaV0Z6YjI0NklDZHViMTl1ZDNOZlkyOTJaWEpoWjJVbkxDQjZhWEFnZlNrN0NpQWdJQ0FnSUhKbGRIVnliaUJ5WlhNdWMzUmhkSFZ6S0RRd05Da3Vhbk52YmloN0lHVnljbTl5T2lBbmJtOWZibmR6WDJOdmRtVnlZV2RsSnlCOUtUc0tJQ0FnSUgwS0NpQWdJQ0F2THlBekxpQkdaWFJqYUNCMGFHVWdabTl5WldOaGMzUWdabTl5SUhSb1lYUWdaM0pwWkNCaGJtUWdhMlZsY0NCMGFHVWdabWx5YzNRZ2NHVnlhVzlrSUNodWIzY3NJRzl5SUhSb1pTQnVaWGgwSUdKc2IyTnJLUzRLSUNBZ0lHTnZibk4wSUdadmNtVmpZWE4wSUQwZ1lYZGhhWFFnWm1WMFkyaEtjMjl1S0NkdWQzTmZabTl5WldOaGMzUW5MQ0J3YjJsdWRDNXdjbTl3WlhKMGFXVnpMbVp2Y21WallYTjBMQ0JvWldGa1pYSnpLVHNLSUNBZ0lHTnZibk4wSUhCbGNtbHZaQ0E5SUdadmNtVmpZWE4wTG5CeWIzQmxjblJwWlhNdWNHVnlhVzlrYzFzd1hUc0tJQ0FnSUdOdmJuTjBJSEJ5WldOcGNDQTlJSEJsY21sdlpDNXdjbTlpWVdKcGJHbDBlVTltVUhKbFkybHdhWFJoZEdsdmJpQS9JSEJsY21sdlpDNXdjbTlpWVdKcGJHbDBlVTltVUhKbFkybHdhWFJoZEdsdmJpNTJZV3gxWlNBNklHNTFiR3c3Q2dvZ0lDQWdZMjl1YzNRZ1ltOWtlU0E5SUhzS0lDQWdJQ0FnZW1sd0xBb2dJQ0FnSUNCamFYUjVPaUJ3YkdGalpWc25jR3hoWTJVZ2JtRnRaU2RkTEFvZ0lDQWdJQ0J6ZEdGMFpUb2djR3hoWTJWYkozTjBZWFJsSUdGaVluSmxkbWxoZEdsdmJpZGRMQW9nSUNBZ0lDQnNZWFJwZEhWa1pUb2diR0YwTEFvZ0lDQWdJQ0JzYjI1bmFYUjFaR1U2SUd4dmJpd0tJQ0FnSUNBZ1ptOXlaV05oYzNRNklIc0tJQ0FnSUNBZ0lDQnVZVzFsT2lCd1pYSnBiMlF1Ym1GdFpTd0tJQ0FnSUNBZ0lDQjBaVzF3WlhKaGRIVnlaVG9nY0dWeWFXOWtMblJsYlhCbGNtRjBkWEpsTEFvZ0lDQWdJQ0FnSUhSbGJYQmxjbUYwZFhKbFZXNXBkRG9nY0dWeWFXOWtMblJsYlhCbGNtRjBkWEpsVlc1cGRDd0tJQ0FnSUNBZ0lDQnphRzl5ZEVadmNtVmpZWE4wT2lCd1pYSnBiMlF1YzJodmNuUkdiM0psWTJGemRDd0tJQ0FnSUNBZ0lDQjNhVzVrVTNCbFpXUTZJSEJsY21sdlpDNTNhVzVrVTNCbFpXUXNDaUFnSUNBZ0lDQWdjSEpsWTJsd2FYUmhkR2x2YmtOb1lXNWpaVG9nY0hKbFkybHdMQW9nSUNBZ0lDQWdJR2x6UkdGNWRHbHRaVG9nY0dWeWFXOWtMbWx6UkdGNWRHbHRaU3dLSUNBZ0lDQWdmU3dLSUNBZ0lIMDdDZ29nSUNBZ0x5OGdOQzRnUzJWbGNDQmhJR052Y0hrdUlGUm9hWE1nYVhNZ1ltOTBhQ0IwYUdVZ1kyRmphR1VnWm05eUlIUm9aU0J1WlhoMElHTmhiR3hsY2lCaGJtUWdkR2hsSUdocGMzUnZjbmt1Q2lBZ0lDQmpiMjV6ZENCellYWmxaQ0E5SUdGM1lXbDBJSE5oZG1WTWIyOXJkWEFvZW1sd0xDQmliMlI1S1RzS0lDQWdJR052Ym5OMElHTmhZMmhsSUQwZ2MyRjJaV1F1YzNSaGRHVWdQVDA5SUNkdmF5Y2dQeUFuYldsemN5Y2dPaUJ6WVhabFpDNXpkR0YwWlRzZ0x5OGdKMjFwYzNNbkxDQW5aR2x6WVdKc1pXUW5JRzl5SUNkMWJtRjJZV2xzWVdKc1pTY0tJQ0FnSUd4dlp5Z25kMlZoZEdobGNsOXpkV05qWlhOekp5d2dleUI2YVhBc0lHTmhZMmhsTENCdGN6b2dSR0YwWlM1dWIzY29LU0F0SUhOMFlYSjBaV1FnZlNrN0NpQWdJQ0J5WlhSMWNtNGdjbVZ6TG1wemIyNG9leUF1TGk1aWIyUjVMQ0JqWVdOb1pTQjlLVHNLSUNCOUlHTmhkR05vSUNobGNuSXBJSHNLSUNBZ0lHbG1JQ2hsY25JZ2FXNXpkR0Z1WTJWdlppQlZjSE4wY21WaGJVVnljbTl5S1NCN0NpQWdJQ0FnSUd4dlp5Z25kMlZoZEdobGNsOWxjbkp2Y2ljc0lIc2dlbWx3TENCemRHRm5aVG9nWlhKeUxuTjBZV2RsTENCemRHRjBkWE02SUdWeWNpNXpkR0YwZFhNZ2ZTazdDaUFnSUNBZ0lISmxkSFZ5YmlCeVpYTXVjM1JoZEhWektEVXdNaWt1YW5OdmJpaDdJR1Z5Y205eU9pQW5kWEJ6ZEhKbFlXMWZaWEp5YjNJbkxDQnpkR0ZuWlRvZ1pYSnlMbk4wWVdkbElIMHBPd29nSUNBZ2ZRb2dJQ0FnYkc5bktDZDNaV0YwYUdWeVgyVnljbTl5Snl3Z2V5QjZhWEFzSUhOMFlXZGxPaUFuYVc1MFpYSnVZV3duTENCdFpYTnpZV2RsT2lCbGNuSXViV1Z6YzJGblpTQjlLVHNLSUNBZ0lISmxkSFZ5YmlCeVpYTXVjM1JoZEhWektEVXdNQ2t1YW5OdmJpaDdJR1Z5Y205eU9pQW5hVzUwWlhKdVlXeGZaWEp5YjNJbklIMHBPd29nSUgwS2ZTazdDZ3BoY0hBdWJHbHpkR1Z1S0ZCUFVsUXNJQ2dwSUQwK0lHeHZaeWduZDJWaGRHaGxjbDl6ZEdGeWRHVmtKeXdnZXlCd2IzSjBPaUJRVDFKVUxDQjBZV0pzWlRvZ1ZFRkNURVVnZkh3Z2JuVnNiQ0I5S1NrN0NnPT0iIHwgYmFzZTY0IC1kID4gL29wdC9hcHAvYXBwLmpzCmVjaG8gImV3b2dJQ0p1WVcxbElqb2dJbmRsWVhSb1pYSXRZWEJ3SWl3S0lDQWlkbVZ5YzJsdmJpSTZJQ0l4TGpBdU1DSXNDaUFnSW0xaGFXNGlPaUFpWVhCd0xtcHpJaXdLSUNBaVpHVndaVzVrWlc1amFXVnpJam9nZXdvZ0lDQWdJa0JoZDNNdGMyUnJMMk5zYVdWdWRDMWtlVzVoYlc5a1lpSTZJQ0plTXk0Mk1EQXVNQ0lzQ2lBZ0lDQWlRR0YzY3kxelpHc3ZiR2xpTFdSNWJtRnRiMlJpSWpvZ0lsNHpMall3TUM0d0lpd0tJQ0FnSUNKbGVIQnlaWE56SWpvZ0lsNDBMakU1TGpJaUNpQWdmUXA5Q2c9PSIgfCBiYXNlNjQgLWQgPiAvb3B0L2FwcC9wYWNrYWdlLmpzb24KY2QgL29wdC9hcHAKbnBtIGluc3RhbGwgLS1vbWl0PWRldgoKY2F0ID4gL2V0Yy9zeXN0ZW1kL3N5c3RlbS93ZWF0aGVyLnNlcnZpY2UgPDwgJ1NFUlZJQ0UnCltVbml0XQpEZXNjcmlwdGlvbj13ZWF0aGVyIGFwcApBZnRlcj1uZXR3b3JrLnRhcmdldAoKW1NlcnZpY2VdCkVudmlyb25tZW50PVBPUlQ9MzAwMApFbnZpcm9ubWVudD1BV1NfUkVHSU9OPXVzLWVhc3QtMgpFbnZpcm9ubWVudD0iQ0FDSEVfU0VDT05EUz02MDAiCkVudmlyb25tZW50PSJOV1NfVVNFUl9BR0VOVD0oaXRtby00NDQtNTQ0IHdlYXRoZXIgbGFiLCBycGVycnk3NDU2QGdtYWlsLmNvbSkiCkVudmlyb25tZW50PSJXRUFUSEVSX1RBQkxFPWl0bW8tNDQ0LTU0NC1sYWIwNy13ZWF0aGVyLWxvb2t1cHMiCldvcmtpbmdEaXJlY3Rvcnk9L29wdC9hcHAKRXhlY1N0YXJ0PS91c3IvYmluL25vZGUgL29wdC9hcHAvYXBwLmpzClJlc3RhcnQ9YWx3YXlzClVzZXI9ZWMyLXVzZXIKCltJbnN0YWxsXQpXYW50ZWRCeT1tdWx0aS11c2VyLnRhcmdldApTRVJWSUNFCgpjaG93biAtUiBlYzItdXNlcjplYzItdXNlciAvb3B0L2FwcApzeXN0ZW1jdGwgZGFlbW9uLXJlbG9hZApzeXN0ZW1jdGwgZW5hYmxlIHdlYXRoZXIuc2VydmljZQpzeXN0ZW1jdGwgc3RhcnQgd2VhdGhlci5zZXJ2aWNlCg=="
+      + vpc_security_group_ids = (known after apply)
+
+      + iam_instance_profile {
+          + name = "itmo-444-544-lab07-weather-profile"
+        }
+
+      + metadata_options (known after apply)
+
+      + tag_specifications {
+          + resource_type = "instance"
+          + tags          = {
+              + "Name" = "weather-app"
+            }
+        }
+    }
+
+  # aws_lb.main will be created
+  + resource "aws_lb" "main" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 3600
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = false
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enable_zonal_shift                                           = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = false
+      + ip_address_type                                              = (known after apply)
+      + load_balancer_type                                           = "application"
+      + name                                                         = "itmo-444-544-lab07-alb"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = [
+          + "subnet-0320b6b5a09b75e05",
+          + "subnet-0533971275c5e4149",
+          + "subnet-0d5a982658838e73b",
+        ]
+      + tags_all                                                     = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + subnet_mapping (known after apply)
+    }
+
+  # aws_lb_listener.tier["advisor"] will be created
+  + resource "aws_lb_listener" "tier" {
+      + arn                                                                   = (known after apply)
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 8081
+      + protocol                                                              = "HTTP"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = (known after apply)
+      + tags_all                                                              = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # aws_lb_listener.tier["weather"] will be created
+  + resource "aws_lb_listener" "tier" {
+      + arn                                                                   = (known after apply)
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 8080
+      + protocol                                                              = "HTTP"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = (known after apply)
+      + tags_all                                                              = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # aws_lb_target_group.tier["advisor"] will be created
+  + resource "aws_lb_target_group" "tier" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "itmo-444-544-lab07-advisor-tg"
+      + name_prefix                        = (known after apply)
+      + port                               = 3000
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + slow_start                         = 0
+      + tags_all                           = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + target_type                        = "instance"
+      + vpc_id                             = "vpc-0b65434ca3c6f48cb"
+
+      + health_check {
+          + enabled             = true
+          + healthy_threshold   = 2
+          + interval            = 10
+          + matcher             = "200"
+          + path                = "/"
+          + port                = "traffic-port"
+          + protocol            = "HTTP"
+          + timeout             = 5
+          + unhealthy_threshold = 2
+        }
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # aws_lb_target_group.tier["weather"] will be created
+  + resource "aws_lb_target_group" "tier" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "itmo-444-544-lab07-weather-tg"
+      + name_prefix                        = (known after apply)
+      + port                               = 3000
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + slow_start                         = 0
+      + tags_all                           = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + target_type                        = "instance"
+      + vpc_id                             = "vpc-0b65434ca3c6f48cb"
+
+      + health_check {
+          + enabled             = true
+          + healthy_threshold   = 2
+          + interval            = 10
+          + matcher             = "200"
+          + path                = "/"
+          + port                = "traffic-port"
+          + protocol            = "HTTP"
+          + timeout             = 5
+          + unhealthy_threshold = 2
+        }
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # aws_security_group.alb will be created
+  + resource "aws_security_group" "alb" {
+      + arn                    = (known after apply)
+      + description            = "The load balancer: open to the internet on the two listener ports"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "itmo-444-544-lab07-alb-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + vpc_id                 = "vpc-0b65434ca3c6f48cb"
+    }
+
+  # aws_security_group.app will be created
+  + resource "aws_security_group" "app" {
+      + arn                    = (known after apply)
+      + description            = "The app instances: reachable only from the load balancer"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "itmo-444-544-lab07-app-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + vpc_id                 = "vpc-0b65434ca3c6f48cb"
+    }
+
+  # aws_ssm_parameter.gemini will be created
+  + resource "aws_ssm_parameter" "gemini" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/itmo-444-544-lab07/gemini-api-key"
+      + tags_all       = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + tier           = (known after apply)
+      + type           = "SecureString"
+      + value          = (sensitive value)
+      + value_wo       = (write-only attribute)
+      + version        = (known after apply)
+    }
+
+  # aws_vpc_security_group_egress_rule.alb_to_app will be created
+  + resource "aws_vpc_security_group_egress_rule" "alb_to_app" {
+      + arn                          = (known after apply)
+      + from_port                    = 3000
+      + id                           = (known after apply)
+      + ip_protocol                  = "tcp"
+      + referenced_security_group_id = (known after apply)
+      + security_group_id            = (known after apply)
+      + security_group_rule_id       = (known after apply)
+      + tags_all                     = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + to_port                      = 3000
+    }
+
+  # aws_vpc_security_group_egress_rule.app_out will be created
+  + resource "aws_vpc_security_group_egress_rule" "app_out" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + ip_protocol            = "-1"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+    }
+
+  # aws_vpc_security_group_ingress_rule.alb_from_internet["advisor"] will be created
+  + resource "aws_vpc_security_group_ingress_rule" "alb_from_internet" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "0.0.0.0/0"
+      + from_port              = 8081
+      + id                     = (known after apply)
+      + ip_protocol            = "tcp"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + to_port                = 8081
+    }
+
+  # aws_vpc_security_group_ingress_rule.alb_from_internet["weather"] will be created
+  + resource "aws_vpc_security_group_ingress_rule" "alb_from_internet" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "0.0.0.0/0"
+      + from_port              = 8080
+      + id                     = (known after apply)
+      + ip_protocol            = "tcp"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + to_port                = 8080
+    }
+
+  # aws_vpc_security_group_ingress_rule.app_from_alb will be created
+  + resource "aws_vpc_security_group_ingress_rule" "app_from_alb" {
+      + arn                          = (known after apply)
+      + from_port                    = 3000
+      + id                           = (known after apply)
+      + ip_protocol                  = "tcp"
+      + referenced_security_group_id = (known after apply)
+      + security_group_id            = (known after apply)
+      + security_group_rule_id       = (known after apply)
+      + tags_all                     = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + to_port                      = 3000
+    }
+
+  # aws_vpc_security_group_ingress_rule.app_ssh[0] will be created
+  + resource "aws_vpc_security_group_ingress_rule" "app_ssh" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "99.129.116.86/32"
+      + from_port              = 22
+      + id                     = (known after apply)
+      + ip_protocol            = "tcp"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "Project" = "itmo-444-544-lab07"
+        }
+      + to_port                = 22
+    }
+
+Plan: 25 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + advisor_url           = (known after apply)
+  + alb_dns_name          = (known after apply)
+  + gemini_parameter_name = "/itmo-444-544-lab07/gemini-api-key"
+  + weather_table_name    = "itmo-444-544-lab07-weather-lookups"
+  + weather_url           = (known after apply)
+
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+Saved the plan to: tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "tfplan"

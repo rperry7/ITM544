@@ -1,0 +1,60 @@
+﻿aws_dynamodb_table.demo: Refreshing state... [id=itmo-444-544-terraform-demo]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # aws_dynamodb_table.demo must be replaced
+-/+ resource "aws_dynamodb_table" "demo" {
+      ~ arn                         = "arn:aws:dynamodb:us-east-2:[ACCOUNT_ID_REDACTED]:table/itmo-444-544-terraform-demo" -> (known after apply)
+      - deletion_protection_enabled = false -> null
+      ~ hash_key                    = "id" -> "name" # forces replacement
+      ~ id                          = "itmo-444-544-terraform-demo" -> (known after apply)
+        name                        = "itmo-444-544-terraform-demo"
+      ~ read_capacity               = 0 -> (known after apply)
+      + stream_arn                  = (known after apply)
+      - stream_enabled              = false -> null
+      + stream_label                = (known after apply)
+      + stream_view_type            = (known after apply)
+      - table_class                 = "STANDARD" -> null
+        tags                        = {
+            "Purpose" = "first-taste"
+        }
+      ~ write_capacity              = 0 -> (known after apply)
+        # (2 unchanged attributes hidden)
+
+      - attribute {
+          - name = "id" -> null
+          - type = "S" -> null
+        }
+      + attribute {
+          + name = "name"
+          + type = "S"
+        }
+
+      ~ point_in_time_recovery (known after apply)
+      - point_in_time_recovery {
+          - enabled                 = false -> null
+          - recovery_period_in_days = 0 -> null
+        }
+
+      ~ server_side_encryption (known after apply)
+
+      ~ ttl (known after apply)
+      - ttl {
+          - enabled        = false -> null
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+Changes to Outputs:
+  ~ table_arn = "arn:aws:dynamodb:us-east-2:[ACCOUNT_ID_REDACTED]:table/itmo-444-544-terraform-demo" -> (known after apply)
+
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.

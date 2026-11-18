@@ -1,0 +1,5 @@
+﻿Terraform destroy started: 2026-11-17T21:47:35.7199303-06:00
+Terraform destroy finished: 2026-11-17T21:53:54.7339904-06:00
+Destroy elapsed minutes: 6.32
+Lab07 stack elapsed hours (deployment start to destroy end): 1.434
+Lab07 estimated AWS usage cost at $0.07/hr: $0.1 (estimate, not a bill)

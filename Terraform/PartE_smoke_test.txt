@@ -1,0 +1,13 @@
+﻿PASS   weather tier returns a forecast   status 200
+PASS   a repeat call is answered from DynamoDB (cache hit)   cache=hit
+PASS   history lists the saved lookups   status 200, count=1
+PASS   weather tier rejects a bad zip with 400   status 400
+PASS   weather tier returns 404 for an unknown zip   status 404
+PASS   advisor tier returns clothing advice   status 200, 0.8s
+      source=gemini model=gemini-3.1-flash-lite
+      advice: Wear a medium-weight jacket to stay comfortable in the cool evening air. You should also consider a scarf or light gloves since the breeze will make it feel colder.
+PASS   advice came from Gemini (not the fallback)   fallback means the key is still the placeholder, or the key, quota or model name needs a look
+PASS   advisor tier rejects a bad zip with 400   status 400
+PASS   advisor home page loads   status 200
+
+9 of 9 checks passed

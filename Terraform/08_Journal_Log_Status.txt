@@ -1,0 +1,1 @@
+﻿Gemini fallback requests succeeded. The required advisor gemini_error journal line was not retrieved because SSH/EC2 Instance Connect access failed and the instance was not registered in SSM. No log line is fabricated.

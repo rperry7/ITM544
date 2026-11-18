@@ -1,0 +1,30 @@
+﻿Terraform state list:
+
+
+Project-tagged resources: 
+arn:aws:ec2:us-east-2:[ACCOUNT_ID_REDACTED]:security-group-rule/sgr-05519161b6d2223b6	arn:aws:ec2:us-east-2:[ACCOUNT_ID_REDACTED]:security-group-rule/sgr-055a1d9e016dc6a1f	arn:aws:ec2:us-east-2:[ACCOUNT_ID_REDACTED]:security-group-rule/sgr-015287c7a51a84e71	arn:aws:ec2:us-east-2:[ACCOUNT_ID_REDACTED]:security-group-rule/sgr-0e2555dadb0a11d31	arn:aws:ec2:us-east-2:[ACCOUNT_ID_REDACTED]:security-group-rule/sgr-0f8e732558657d75a	arn:aws:ec2:us-east-2:[ACCOUNT_ID_REDACTED]:security-group-rule/sgr-055011e4e12fcdb39
+Exit code: 0
+
+Lab07 load balancers: 
+
+Exit code: 0
+
+Lab07 Auto Scaling groups: 
+
+Exit code: 0
+
+Active Lab07 instances: 
+
+Exit code: 0
+
+Lab07 DynamoDB tables: 
+
+Exit code: 0
+
+Lab07 SSM parameter names: 
+
+Exit code: 0
+
+Lab07 IAM role names: 
+
+Exit code: 0

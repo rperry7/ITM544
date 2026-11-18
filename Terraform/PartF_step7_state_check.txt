@@ -1,0 +1,2 @@
+﻿Gemini API key occurrences: 0
+Placeholder not-set-yet exists: False

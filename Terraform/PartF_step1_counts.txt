@@ -1,0 +1,5 @@
+﻿Lab06 Python lines (available files): 1126
+Lab06 Python code lines: 930
+Lab07 Terraform/template lines: 431
+Lab07 Terraform/template code lines: 346
+Lab06 delete-script wrapper lines: 20
